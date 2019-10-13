@@ -23,6 +23,6 @@ namespace SelectionCommittee.DAL.Entities
         public string Photo { get; set; }
         public Certificate Certificate { get; set; }
         [ForeignKey("Certificate")]
-        public int CertificateId { get; set; }
+        public int? CertificateId { get; set; }
     }
 }
