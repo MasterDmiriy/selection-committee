@@ -2,8 +2,8 @@
 
 namespace SelectionCommittee.DAL.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationRole : IdentityRole
     {
-        public Enrollee Enrollee { get; set; }
+
     }
 }
