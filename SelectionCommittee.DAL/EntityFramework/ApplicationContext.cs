@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Text;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SelectionCommittee.DAL.Entities;
 
-namespace SelectionCommittee.DAL.EF
+namespace SelectionCommittee.DAL.EntityFramework
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
