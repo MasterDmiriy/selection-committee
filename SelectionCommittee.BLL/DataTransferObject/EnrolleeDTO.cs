@@ -12,7 +12,7 @@
         public string Photo { get; set; }
         public string Role { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         public int RegionId { get; set; }
         public int EducationalInstitutionId { get; set; }
         public int? CertificateId { get; set; }

@@ -11,14 +11,13 @@ namespace SelectionCommittee.DAL.Entities
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public string Email { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
 
         public City City { get; set; }
 
         [ForeignKey("City")] 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         public Region Region { get; set; }
 
