@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SelectionCommittee.DAL\SelectionCommittee.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
