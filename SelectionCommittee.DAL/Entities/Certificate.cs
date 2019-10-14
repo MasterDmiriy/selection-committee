@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SelectionCommittee.DAL.Entities
@@ -8,11 +9,11 @@ namespace SelectionCommittee.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        public SubjectCertificate Subject { set; get; }
+        public IList<MarkSubjectCertificate> MarkSubjects { set; get; }
 
-        [ForeignKey("Subject")]
-        public int SubjectId { set; get; }
-
-        public int Mark { get; set; }
+        public Certificate()
+        {
+            MarkSubjects = new List<MarkSubjectCertificate>();
+        }
     }
 }

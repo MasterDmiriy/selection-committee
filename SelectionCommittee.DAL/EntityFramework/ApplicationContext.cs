@@ -29,5 +29,7 @@ namespace SelectionCommittee.DAL.EntityFramework
         public DbSet<SubjectCertificate> SubjectCertificates { get; set; }
 
         public DbSet<SubjectEIE> SubjectEIEs { get; set; }
+
+        public  DbSet<MarkSubjectCertificate> MarkSubjectCertificates { set; get; }
     }
 }

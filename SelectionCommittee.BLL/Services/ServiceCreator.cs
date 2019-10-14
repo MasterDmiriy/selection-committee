@@ -1,6 +1,5 @@
 ﻿using SelectionCommittee.BLL.Interfaces;
 using SelectionCommittee.DAL.Interfaces;
-using SelectionCommittee.DAL.Repositories;
 
 namespace SelectionCommittee.BLL.Services
 {

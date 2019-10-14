@@ -45,6 +45,24 @@ namespace SelectionCommittee.BLL.Services
            }
         }
 
+        public OperationDetails Update(EnrolleeDTO enrollee)
+        {
+            Enrollee enrol = new Enrollee
+            {
+                Id = enrollee.Id,
+                Name = enrollee.Name,
+                Surname = enrollee.Surname,
+                Patronymic = enrollee.Patronymic,
+                Photo = enrollee.Photo,
+                CityId = enrollee.CityId,
+                RegionId = enrollee.RegionId,
+                EducationalInstitutionId = enrollee.EducationalInstitutionId,
+                CertificateId = enrollee.CertificateId
+            };
+            _database.EnrolleeManager.Update(enrol);
+            return new OperationDetails(true,"Данные успешно обновлены","");
+        }
+
         public async Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee)
         {
             ClaimsIdentity claim = null;

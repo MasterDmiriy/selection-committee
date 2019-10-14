@@ -8,7 +8,9 @@ namespace SelectionCommittee.BLL.Interfaces
 {
     public interface IEnrolleService
     {
-        Task<OperationDetails> Create(EnrolleeDTO enrollee);
+        Task<OperationDetails> Create(EnrolleeDTO enrollee); 
+        OperationDetails Update(EnrolleeDTO enrollee);
+        //EnrolleeDTO Get(int id);
         Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee);
     }
 }

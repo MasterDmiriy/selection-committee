@@ -23,6 +23,7 @@ namespace SelectionCommittee.DAL.Repositories
         private IStatementRepository _statementRepository;
         private ISubjectCertificateRepository _subjectCertificateRepository;
         private ISubjectEIERepository _subjectEIERepository;
+        private IMarkSubjectCertificateRepository _markSubjectCertificateRepository;
 
         public UnitOfWork(string strConnection)
         {
@@ -39,6 +40,7 @@ namespace SelectionCommittee.DAL.Repositories
             _statementRepository = new StatementRepository(_db);
             _subjectCertificateRepository = new SubjectCertificateRepository(_db);
             _subjectEIERepository = new SubjectEIERepository(_db);
+            _markSubjectCertificateRepository = new MarkSubjectCertificateRepository(_db);
         }
 
         public ApplicationUserManager UserManager => _applicationUserManager;
@@ -64,6 +66,7 @@ namespace SelectionCommittee.DAL.Repositories
         public ISubjectCertificateRepository SubjectCertificateRepository => _subjectCertificateRepository;
 
         public ISubjectEIERepository SubjectEIERepository => _subjectEIERepository;
+        public IMarkSubjectCertificateRepository MarkSubjectCertificateRepository => _markSubjectCertificateRepository;
 
         public async Task SaveAsync()
         {
