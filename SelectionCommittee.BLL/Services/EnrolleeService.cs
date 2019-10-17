@@ -36,7 +36,7 @@ namespace SelectionCommittee.BLL.Services
                    CertificateId = enrollee.CertificateId
                };
                _database.EnrolleeManager.Create(enrol);
-               _database.SaveAsync();
+                await _database.SaveAsync();
                return new OperationDetails(true,"Регистрация успешно пройдена", "");
            }
            else

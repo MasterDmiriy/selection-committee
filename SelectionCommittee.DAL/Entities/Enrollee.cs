@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SelectionCommittee.DAL.Entities
@@ -34,5 +35,12 @@ namespace SelectionCommittee.DAL.Entities
 
         [ForeignKey("Certificate")]
         public int? CertificateId { get; set; }
+
+        public IList<MarkEIE> MarkEIEs { set; get; }
+
+        public Enrollee()
+        {
+            MarkEIEs = new List<MarkEIE>();
+        }
     }
 }

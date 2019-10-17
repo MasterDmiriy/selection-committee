@@ -68,6 +68,11 @@ namespace SelectionCommittee.DAL.Repositories
         public ISubjectEIERepository SubjectEIERepository => _subjectEIERepository;
         public IMarkSubjectCertificateRepository MarkSubjectCertificateRepository => _markSubjectCertificateRepository;
 
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
+
         public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();

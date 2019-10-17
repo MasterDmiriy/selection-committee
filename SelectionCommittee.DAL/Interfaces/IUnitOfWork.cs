@@ -29,6 +29,7 @@ namespace SelectionCommittee.DAL.Interfaces
 
         IMarkSubjectCertificateRepository MarkSubjectCertificateRepository { get; }
 
+        void Save();
         Task SaveAsync();
     }
 }
