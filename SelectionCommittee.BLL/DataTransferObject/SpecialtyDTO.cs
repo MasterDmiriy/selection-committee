@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SelectionCommittee.DAL.Entities
+namespace SelectionCommittee.BLL.DataTransferObject
 {
-     public class Specialty
+    public class SpecialtyDTO
     {
-        [Key]
         public int Number { get; set; }
 
         public string Name { get; set; }
@@ -14,12 +14,8 @@ namespace SelectionCommittee.DAL.Entities
 
         public int TotalPlaces { get; set; }
 
-        public Faculty Faculty { get; set; }
-
-        [ForeignKey("Faculty")]
         public int FacultyId { get; set; }
 
         public string Photo { get; set; }
-
     }
 }

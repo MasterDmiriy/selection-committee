@@ -16,19 +16,5 @@ namespace SelectionCommittee.DAL.Entities
 
         [ForeignKey("Specialty")]
         public int SpecialtyId { get; set; }
-
-        public MarkEIE FirstMarkEIE { get; set; }
-
-        [ForeignKey("FirstMarkEIE")]
-        public int FirstMark { get; set; }
-        public MarkEIE SecondMarkEIE { get; set; }
-
-        [ForeignKey("SecondMarkEIE")]
-        public int SecondMark { get; set; }
-        public MarkEIE ThirdMarkEIE { get; set; }
-
-        [ForeignKey("ThirdMarkEIE")]
-        public int ThirdMark { get; set; }
-
     }
 }

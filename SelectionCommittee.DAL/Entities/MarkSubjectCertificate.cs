@@ -16,11 +16,11 @@ namespace SelectionCommittee.DAL.Entities
 
         public int Mark { get; set; }
 
-        public IList<Certificate> Certificates { set; get; }
+        public Certificate Certificate { set; get; }
 
-        public MarkSubjectCertificate()
-        {
-            Certificates = new List<Certificate>();
-        }
+        [ForeignKey("Certificate")]
+        public int CertificateId { set; get; }
+
+
     }
 }

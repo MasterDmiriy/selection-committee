@@ -34,7 +34,8 @@ namespace SelectionCommittee.DAL.Repositories
 
         public IEnumerable<Faculty> GetAll()
         {
-            return _context.Faculties.ToList();
+            return _context.Faculties.Include(sub => sub.FirstSubjectEIE).Include(sub => sub.SecondSubjectEIE).
+                Include(sub => sub.ThirdSubjectEIE).Include(sub => sub.FourthSubjectEIE).ToList();
         }
 
         public void Update(Faculty faculty)
