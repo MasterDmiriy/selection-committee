@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SelectionCommittee.DAL.Entities
 {
@@ -8,5 +9,8 @@ namespace SelectionCommittee.DAL.Entities
         public int Id { get; set; }
 
         public string Name { get; set; }
+        public City City { get; set; }
+        [ForeignKey("City")]
+        public int CityId { set; get; }
     }
 }

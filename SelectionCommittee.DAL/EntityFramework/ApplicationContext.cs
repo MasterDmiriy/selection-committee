@@ -6,6 +6,10 @@ namespace SelectionCommittee.DAL.EntityFramework
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
+        static ApplicationContext()
+        {
+            Database.SetInitializer<ApplicationContext>(new DbInitializer());
+        }
         public ApplicationContext(string strConnection) : base(strConnection) { }
 
         public DbSet<Enrollee> Enrollees { get; set; }
