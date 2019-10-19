@@ -1,4 +1,5 @@
-﻿using SelectionCommittee.DAL.Entities;
+﻿using System.Collections.Generic;
+using SelectionCommittee.DAL.Entities;
 using SelectionCommittee.DAL.EntityFramework;
 using SelectionCommittee.DAL.Interfaces;
 
@@ -11,9 +12,10 @@ namespace SelectionCommittee.DAL.Repositories
         {
             _context = db;
         }
-        public void Create(MarkEIE markEIE)
+
+        public void CreateRange(IEnumerable<MarkEIE> marksEIE)
         {
-            _context.MarkEIEs.Add(markEIE);
+            _context.MarkEIEs.AddRange(marksEIE);
         }
     }
 }

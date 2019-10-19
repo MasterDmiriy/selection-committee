@@ -29,6 +29,7 @@ namespace SelectionCommittee.BLL.Services
                 FourthSubjectId = facultyDTO.FourthSubjectEIE.Id
             };
             _database.FacultyRepository.Create(faculty);
+            _database.Save();
         }
 
         public IEnumerable<FacultyDTO> GetAll()

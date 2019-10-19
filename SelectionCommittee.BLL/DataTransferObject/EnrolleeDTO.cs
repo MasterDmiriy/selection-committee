@@ -13,8 +13,12 @@
         public string Role { get; set; }
 
         public int? CityId { get; set; }
+        public string City { get; set; }
         public int RegionId { get; set; }
+        public string Region { get; set; }
         public int EducationalInstitutionId { get; set; }
+        public string EducationalInstitution { get; set; }
         public int? CertificateId { get; set; }
+        public CertificateDTO CertificateDTO { get; set; }
     }
 }

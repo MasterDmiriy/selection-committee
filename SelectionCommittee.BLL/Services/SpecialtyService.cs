@@ -29,6 +29,7 @@ namespace SelectionCommittee.BLL.Services
                 FacultyId = specialtyDTO.FacultyId
             };
             _database.SpecialtyRepository.Create(specialty);
+            _database.Save();
         }
 
         public IEnumerable<SpecialtyDTO> GetAll()

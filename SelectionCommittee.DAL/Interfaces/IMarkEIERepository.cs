@@ -1,9 +1,10 @@
 ﻿using SelectionCommittee.DAL.Entities;
+using System.Collections.Generic;
 
 namespace SelectionCommittee.DAL.Interfaces
 {
     public interface IMarkEIERepository
     {
-        void Create(MarkEIE markEIE);
+        void CreateRange(IEnumerable<MarkEIE> marksEIE);
     }
 }

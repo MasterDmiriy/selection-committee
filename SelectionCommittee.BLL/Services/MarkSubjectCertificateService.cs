@@ -19,7 +19,11 @@ namespace SelectionCommittee.BLL.Services
             List<MarkSubjectCertificate> markSubjects = new List<MarkSubjectCertificate>();
             foreach (var markSubject in markSubjectsDTO)
             {
-                markSubjects.Add(new MarkSubjectCertificate{SubjectId = markSubject.SubjectId, Mark = markSubject.Mark});
+                markSubjects.Add(new MarkSubjectCertificate
+                {
+                    SubjectId = markSubject.SubjectId,
+                    Mark = markSubject.Mark
+                });
             }
             _database.MarkSubjectCertificateRepository.CreateRange(markSubjects);
             _database.Save();
