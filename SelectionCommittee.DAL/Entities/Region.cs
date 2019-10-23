@@ -9,9 +9,10 @@ namespace SelectionCommittee.DAL.Entities
         public int Id { set; get; }
         public string Name { get; set; }
         public IList<City> Cities { get; set; }
-
+        public ICollection<Enrollee> Enrollees { set; get; }
         public Region()
         {
+            Enrollees = new List<Enrollee>();
             Cities = new List<City>();
         }
     }

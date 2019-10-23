@@ -7,7 +7,7 @@ using SelectionCommittee.DAL.Entities;
 
 namespace SelectionCommittee.DAL.EntityFramework
 {
-    class DbInitializer : CreateDatabaseIfNotExists<ApplicationContext>
+    public class DbInitializer : CreateDatabaseIfNotExists<ApplicationContext>
     {
         protected override void Seed(ApplicationContext context)
         {

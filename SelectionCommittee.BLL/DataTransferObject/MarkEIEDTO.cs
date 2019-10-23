@@ -6,6 +6,6 @@
 
         public int Mark { get; set; }
 
-        public int EnrolleeId { get; set; }
+        public string EnrolleeId { get; set; }
     }
 }

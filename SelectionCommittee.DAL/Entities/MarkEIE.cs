@@ -18,6 +18,6 @@ namespace SelectionCommittee.DAL.Entities
         public Enrollee Enrollee { set; get; }
 
         [ForeignKey("Enrollee")]
-        public int EnrolleeId { get; set; }
+        public string EnrolleeId { get; set; }
     }
 }

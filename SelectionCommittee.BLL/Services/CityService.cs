@@ -21,7 +21,8 @@ namespace SelectionCommittee.BLL.Services
             _database.CityRepository.GetAll().ToList().ForEach(city => Cities.Add(new CityDTO()
             {
                 Id = city.Id,
-                Name = city.Name
+                Name = city.Name,
+                RegionId = city.RegionId
             }));
             return Cities;
         }

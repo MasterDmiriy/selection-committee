@@ -13,17 +13,17 @@ namespace SelectionCommittee.DAL.Entities
         public SubjectEIE FirstSubjectEIE { get; set; }
 
         [ForeignKey("FirstSubjectEIE")]
-        public int FirstSubjectId { get; set; }
+        public int? FirstSubjectId { get; set; }
 
         public SubjectEIE SecondSubjectEIE { get; set; }
 
         [ForeignKey("SecondSubjectEIE")]
-        public int SecondSubjectId { get; set; }
+        public int? SecondSubjectId { get; set; }
 
         public SubjectEIE ThirdSubjectEIE { get; set; }
 
         [ForeignKey("ThirdSubjectEIE")]
-        public int ThirdSubjectId { get; set; }
+        public int? ThirdSubjectId { get; set; }
 
         public SubjectEIE FourthSubjectEIE { get; set; }
 

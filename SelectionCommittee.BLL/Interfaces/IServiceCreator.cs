@@ -3,7 +3,7 @@ namespace SelectionCommittee.BLL.Interfaces
 {
     public interface IServiceCreator
     {
-        IEnrolleService CreateEnrolleService();
+        IEnrolleeService CreateEnrolleService();
         IRegionService CreateRegionService();
         ICityService CreateCityService();
         IEducationalInstitutionService CreateEducationalInstitutionService();

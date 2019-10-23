@@ -1,5 +1,6 @@
 ﻿using SelectionCommittee.BLL.Interfaces;
 using SelectionCommittee.DAL.Interfaces;
+using SelectionCommittee.DAL.Repositories;
 
 namespace SelectionCommittee.BLL.Services
 {
@@ -7,9 +8,9 @@ namespace SelectionCommittee.BLL.Services
     {
         private IUnitOfWork _database;
 
-        public ServiceCreator(IUnitOfWork db)
+        public ServiceCreator(string strConnection)
         {
-            _database = db;
+            _database = new UnitOfWork(strConnection);
         }
 
         public ICityService CreateCityService()
@@ -22,7 +23,7 @@ namespace SelectionCommittee.BLL.Services
             return new EducationalInstitutionService(_database);
         }
 
-        public IEnrolleService CreateEnrolleService()
+        public IEnrolleeService CreateEnrolleService()
         {
             return new EnrolleeService(_database);
         }

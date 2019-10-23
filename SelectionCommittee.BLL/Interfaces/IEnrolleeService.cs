@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using SelectionCommittee.BLL.DataTransferObject;
 using SelectionCommittee.BLL.Infrastructure;
@@ -6,7 +7,7 @@ using SelectionCommittee.BLL.Infrastructure;
 
 namespace SelectionCommittee.BLL.Interfaces
 {
-    public interface IEnrolleService
+    public interface IEnrolleeService : IDisposable
     {
         Task<OperationDetails> Create(EnrolleeDTO enrollee); 
         OperationDetails Update(EnrolleeDTO enrollee);

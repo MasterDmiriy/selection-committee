@@ -6,11 +6,31 @@ namespace SelectionCommittee.DAL.EntityFramework
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
+
+        public ApplicationContext(string strConnection) : base(strConnection) { }
         static ApplicationContext()
         {
             Database.SetInitializer<ApplicationContext>(new DbInitializer());
         }
-        public ApplicationContext(string strConnection) : base(strConnection) { }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Region>().HasMany(r=>r.Cities)
+                .WithRequired(r=>r.Region).HasForeignKey(r=>r.RegionId)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<City>().HasMany(c=>c.EducationalInstitutions)
+                .WithRequired(c=>c.City).HasForeignKey(c=>c.CityId)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<City>().HasMany(c=>c.Enrollees).
+                WithRequired(c=>c.City).HasForeignKey(c=>c.CityId).
+                WillCascadeOnDelete(false);
+            modelBuilder.Entity<Region>().HasMany(r=>r.Enrollees)
+                .WithRequired(r=>r.Region).HasForeignKey(r=>r.RegionId)
+                .WillCascadeOnDelete(false);
+            
+            base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<Enrollee> Enrollees { get; set; }
 

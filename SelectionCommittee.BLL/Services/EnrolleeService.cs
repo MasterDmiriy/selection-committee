@@ -10,7 +10,7 @@ using SelectionCommittee.DAL.Interfaces;
 
 namespace SelectionCommittee.BLL.Services
 {
-    public class EnrolleeService : IEnrolleService
+    public class EnrolleeService : IEnrolleeService
     {
         private IUnitOfWork _database;
 
@@ -20,7 +20,13 @@ namespace SelectionCommittee.BLL.Services
         }
         public async Task<OperationDetails> Create(EnrolleeDTO enrollee)
         {
-           ApplicationUser user = await  _database.UserManager.FindByEmailAsync(enrollee.Email);
+            var role = await _database.RoleManager.FindByNameAsync(enrollee.Role);
+            if (role == null)
+            {
+                role = new ApplicationRole { Name = enrollee.Role };
+                await _database.RoleManager.CreateAsync(role);
+            }
+            ApplicationUser user = await  _database.UserManager.FindByEmailAsync(enrollee.Email);
            if (user == null)
            {
                user = new ApplicationUser {Email = enrollee.Email, UserName = enrollee.UserName};
@@ -30,8 +36,8 @@ namespace SelectionCommittee.BLL.Services
                await _database.UserManager.AddToRoleAsync(user.Id, enrollee.Role);
                Enrollee enrol = new Enrollee
                {
-                   Name = enrollee.Name, Surname = enrollee.Surname, Patronymic = enrollee.Patronymic,
-                   Photo = enrollee.Photo, CityId = enrollee.CityId, RegionId = enrollee.RegionId,
+                   Name = enrollee.Name, Surname = enrollee.Surname, Patronymic = enrollee.Patronymic, 
+                   CityId = enrollee.CityId, RegionId = enrollee.RegionId,
                    EducationalInstitutionId = enrollee.EducationalInstitutionId,
                    CertificateId = enrollee.CertificateId
                };
@@ -73,6 +79,11 @@ namespace SelectionCommittee.BLL.Services
             }
 
             return claim;
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

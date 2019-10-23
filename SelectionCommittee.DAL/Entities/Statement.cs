@@ -11,7 +11,7 @@ namespace SelectionCommittee.DAL.Entities
         public Enrollee Enrollee { get; set; }
 
         [ForeignKey("Enrollee")]
-        public int EnrolleeId { get; set; }
+        public string EnrolleeId { get; set; }
         public Specialty Specialty { get; set; }
 
         [ForeignKey("Specialty")]
