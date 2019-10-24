@@ -8,28 +8,28 @@ using System.Text;
 
 namespace SelectionCommittee.BLL.Services
 {
-    public class MarkEIEService : IMarkEIEService
+    public class MarkSubjectService : IMarkSubjectService
     {
         private IUnitOfWork _database;
 
-        public MarkEIEService(IUnitOfWork db)
+        public MarkSubjectService(IUnitOfWork db)
         {
             _database = db;
         }
 
-        public void CreateRange(IEnumerable<MarkEIEDTO> marksEIEDTO)
+        public void CreateRange(IEnumerable<MarkSubjectDTO> markSubjectsDTO)
         {
-            List<MarkEIE> marksEIE = new List<MarkEIE>();
-            foreach(var markEIE in marksEIEDTO)
+            List<MarkSubject> markSubjects = new List<MarkSubject>();
+            foreach(var markEIE in markSubjectsDTO)
             {
-                marksEIE.Add(new MarkEIE
+                markSubjects.Add(new MarkSubject
                 {
                     EnrolleeId = markEIE.EnrolleeId,
-                    SubjectEIEId = markEIE.SubjectEIEId,
+                    SubjectId = markEIE.SubjectId,
                     Mark = markEIE.Mark
                 });
             }
-            _database.MarkEIERepository.CreateRange(marksEIE);
+            _database.MarkSubjectRepository.CreateRange(markSubjects);
             _database.Save();
         }
     }

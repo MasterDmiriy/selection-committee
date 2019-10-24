@@ -9,7 +9,8 @@
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public string Photo { get; set; }
+        public byte[] Photo { get; set; }
+        public string PhotoType { get; set; }
         public string Role { get; set; }
 
         public int? CityId { get; set; }
@@ -18,7 +19,5 @@
 
         public int EducationalInstitutionId { get; set; }
 
-        public int? CertificateId { get; set; }
-        public CertificateDTO CertificateDTO { get; set; }
     }
 }

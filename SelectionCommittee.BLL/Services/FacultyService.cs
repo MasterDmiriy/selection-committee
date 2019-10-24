@@ -23,10 +23,6 @@ namespace SelectionCommittee.BLL.Services
             Faculty faculty = new Faculty
             {
                 Name = facultyDTO.Name,
-                FirstSubjectId = facultyDTO.FirstSubjectEIE.Id,
-                SecondSubjectId = facultyDTO.SecondSubjectEIE.Id,
-                ThirdSubjectId = facultyDTO.ThirdSubjectEIE.Id,
-                FourthSubjectId = facultyDTO.FourthSubjectEIE.Id
             };
             _database.FacultyRepository.Create(faculty);
             _database.Save();
@@ -41,27 +37,7 @@ namespace SelectionCommittee.BLL.Services
                 facultiesDTO.Add(new FacultyDTO
                 {
                     Id = faculty.Id,
-                    Name = faculty.Name,
-                    FirstSubjectEIE = new SubjectEIEDTO
-                    {
-                        Id = faculty.FirstSubjectEIE.Id,
-                        Name = faculty.FirstSubjectEIE.Name
-                    },
-                    SecondSubjectEIE = new SubjectEIEDTO
-                    {
-                        Id = faculty.SecondSubjectEIE.Id,
-                        Name = faculty.SecondSubjectEIE.Name
-                    },
-                    ThirdSubjectEIE = new SubjectEIEDTO
-                    {
-                        Id = faculty.ThirdSubjectEIE.Id,
-                        Name = faculty.ThirdSubjectEIE.Name
-                    },
-                    FourthSubjectEIE = new SubjectEIEDTO
-                    {
-                        Id = faculty.FourthSubjectEIE.Id,
-                        Name = faculty.FourthSubjectEIE.Name
-                    }
+                    Name = faculty.Name
                 });
             }
             return facultiesDTO;
@@ -73,27 +49,7 @@ namespace SelectionCommittee.BLL.Services
             return new FacultyDTO
             {
                 Id = faculty.Id,
-                Name = faculty.Name,
-                FirstSubjectEIE = new SubjectEIEDTO
-                {
-                    Id = faculty.FirstSubjectEIE.Id,
-                    Name = faculty.FirstSubjectEIE.Name
-                },
-                SecondSubjectEIE = new SubjectEIEDTO
-                {
-                    Id = faculty.SecondSubjectEIE.Id,
-                    Name = faculty.SecondSubjectEIE.Name
-                },
-                ThirdSubjectEIE = new SubjectEIEDTO
-                {
-                    Id = faculty.ThirdSubjectEIE.Id,
-                    Name = faculty.ThirdSubjectEIE.Name
-                },
-                FourthSubjectEIE = new SubjectEIEDTO
-                {
-                    Id = faculty.FourthSubjectEIE.Id,
-                    Name = faculty.FourthSubjectEIE.Name
-                }
+                Name = faculty.Name
             };
 
         }

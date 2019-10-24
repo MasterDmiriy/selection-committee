@@ -11,6 +11,161 @@ namespace SelectionCommittee.DAL.EntityFramework
     {
         protected override void Seed(ApplicationContext context)
         {
+            IEnumerable<TypeSubject> typeSubjects = new List<TypeSubject>
+            {
+                new TypeSubject
+                {
+                    Name = "Аттестат"
+                },
+                new TypeSubject
+                {
+                    Name = "Аттестат-ЗНО"
+                },
+                new TypeSubject
+                {
+                    Name = "ЗНО"
+                }
+            };
+            context.TypeSubjects.AddRange(typeSubjects);
+            context.SaveChanges();
+
+            IEnumerable<Subject> subjects = new List<Subject>
+            {
+                new Subject
+                {
+                    Name = "Украинский язык и литература",
+                    TypeSubjectId = 3
+                    
+                },
+                new Subject
+                {
+                    Name = "Математика",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "История Украины",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "Иностранный язык",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "Физика",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "Биология",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "География",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "Химия",
+                    TypeSubjectId = 2
+                },
+                new Subject
+                {
+                    Name = "Украинский язык",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Украинская литература",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Зарубежная литература",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Всемирная история",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Правоведение",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Экономика",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Человек и мир",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Художественная культура",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Философия",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Алгебра и начала анализа",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Геометрия",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Астрономия",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Психология",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Экология",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Технологии",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Информатика",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Физическая культура",
+                    TypeSubjectId = 1
+                },
+                new Subject
+                {
+                    Name = "Защита Отечества",
+                    TypeSubjectId = 1
+                }
+            };
+            context.Subjects.AddRange(subjects.OrderBy(sub => sub.Name));
+            context.SaveChanges();
+
             IEnumerable<Region> regions = new List<Region>
             {
                 new Region
@@ -134,7 +289,7 @@ namespace SelectionCommittee.DAL.EntityFramework
                     Name = "Днепропетровская область"
                 }
             };
-            context.Regions.AddRange(regions.OrderBy(region => region.Name));
+            context.Regions.AddRange(regions);
             context.SaveChanges();
             IEnumerable<City> cities = new List<City>
             {
@@ -331,7 +486,7 @@ namespace SelectionCommittee.DAL.EntityFramework
                     Name = "Кропивницкий"
                 }
             };
-            context.Cities.AddRange(cities.OrderBy(city=>city.Name));
+            context.Cities.AddRange(cities);
 
             IEnumerable<EducationalInstitution> educationalInstitutions = new List<EducationalInstitution>
             {
@@ -424,160 +579,7 @@ namespace SelectionCommittee.DAL.EntityFramework
             context.EducationalInstitutions.AddRange(educationalInstitutions.OrderBy(obj => obj.CityId));
             context.SaveChanges();
 
-            IEnumerable<SubjectEIE> subjectsEIE = new List<SubjectEIE>
-            {
-                new SubjectEIE
-                {
-                    Name = "Украинский язык и литература"
-                },
-                new SubjectEIE
-                {
-                    Name = "Математика "
-                },
-                new SubjectEIE
-                {
-                    Name = "История Украины"
-                },
-                new SubjectEIE
-                {
-                    Name = "Испанский язык"
-                },
-                new SubjectEIE
-                {
-                    Name = "Немецкий язык"
-                },
-                new SubjectEIE
-                {
-                    Name = "Французский язык"
-                },
-                new SubjectEIE
-                {
-                    Name = "Английский язык"
-                },
-                new SubjectEIE
-                {
-                    Name = "Физика"
-                },
-                new SubjectEIE
-                {
-                    Name = "Биология"
-                },
-                new SubjectEIE
-                {
-                    Name = "География"
-                },
-                new SubjectEIE
-                {
-                    Name = "Химия"
-                }
-            };
-            context.SubjectEIEs.AddRange(subjectsEIE);
-
-            IEnumerable<SubjectCertificate> subjectCertificates = new List<SubjectCertificate>
-            {
-                new SubjectCertificate
-                {
-                    Name = "Українська мова"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Українська література"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Іноземна мова"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Світова література"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Історія України"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Всесвітня історія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Правознавство"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Економіка"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Людина і світ"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Художня культура"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Філософія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Математика"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Алгебра і початки аналізу"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Геометрія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Біологія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Астрономія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Географія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Фізика"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Хімія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Психологія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Екологія"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Технології"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Інформатика"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Фізична культура"
-                },
-                new SubjectCertificate
-                {
-                    Name = "Захист Вітчизни"
-                }
-            };
-            context.SubjectCertificates.AddRange(subjectCertificates.OrderBy(sub => sub.Name));
-            context.SaveChanges();
+           
         }
     }
 }

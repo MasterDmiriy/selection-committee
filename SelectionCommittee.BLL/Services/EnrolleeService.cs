@@ -36,10 +36,10 @@ namespace SelectionCommittee.BLL.Services
                await _database.UserManager.AddToRoleAsync(user.Id, enrollee.Role);
                Enrollee enrol = new Enrollee
                {
+                   Id = user.Id,
                    Name = enrollee.Name, Surname = enrollee.Surname, Patronymic = enrollee.Patronymic, 
                    CityId = enrollee.CityId, RegionId = enrollee.RegionId,
-                   EducationalInstitutionId = enrollee.EducationalInstitutionId,
-                   CertificateId = enrollee.CertificateId
+                   EducationalInstitutionId = enrollee.EducationalInstitutionId
                };
                _database.EnrolleeManager.Create(enrol);
                 await _database.SaveAsync();
@@ -62,8 +62,7 @@ namespace SelectionCommittee.BLL.Services
                 Photo = enrollee.Photo,
                 CityId = enrollee.CityId,
                 RegionId = enrollee.RegionId,
-                EducationalInstitutionId = enrollee.EducationalInstitutionId,
-                CertificateId = enrollee.CertificateId
+                EducationalInstitutionId = enrollee.EducationalInstitutionId
             };
             _database.EnrolleeManager.Update(enrol);
             return new OperationDetails(true,"Данные успешно обновлены","");

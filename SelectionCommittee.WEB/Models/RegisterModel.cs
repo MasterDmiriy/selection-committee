@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using SelectionCommittee.BLL.DataTransferObject;
 
 namespace SelectionCommittee.WEB.Models
 {
@@ -24,5 +26,9 @@ namespace SelectionCommittee.WEB.Models
         public int RegionId { get; set; }
         [Required]
         public int EducationalInstitutionId { get; set; }
+
+        public IEnumerable<CityDTO> Cities { set; get; }
+        public IEnumerable<RegionDTO> Regions { get; set; }
+        public IEnumerable<EducationalInstitutionDTO> EducationalInstitutions { set; get; }
     }
 }

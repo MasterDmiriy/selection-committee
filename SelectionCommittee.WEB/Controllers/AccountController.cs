@@ -37,13 +37,14 @@ namespace SelectionCommittee.WEB.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                EnrolleeDTO enrolleeDto = new EnrolleeDTO { Email = model.Email, Password = model.Password };
+                EnrolleeDTO enrolleeDto = new EnrolleeDTO { UserName = model.Email, Password = model.Password };
                 ClaimsIdentity claim = await EnrolleeService.Authenticate(enrolleeDto);
                 if (claim == null)
                 {
@@ -64,7 +65,7 @@ namespace SelectionCommittee.WEB.Controllers
 
         public ActionResult Register()
         {
-            DefaultModel model = new DefaultModel();
+            RegisterModel model = new RegisterModel();
             model.Cities = _creator.CreateCityService().GetCities();
             model.Regions = _creator.CreateRegionService().GetRegions();
             model.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
@@ -92,7 +93,7 @@ namespace SelectionCommittee.WEB.Controllers
                 };
                 OperationDetails operationDetails = await EnrolleeService.Create(enrolleeDto);
                 if (operationDetails.Succedeed)
-                    return View();
+                    return View("Login", new LoginModel{Email = model.Email, Password = model.Password});
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }

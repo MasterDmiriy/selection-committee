@@ -30,17 +30,14 @@ namespace SelectionCommittee.DAL.Entities
         [ForeignKey("EducationalInstitution")]
         public int EducationalInstitutionId { get; set; }
 
-        public string Photo { get; set; }
-        public Certificate Certificate { get; set; }
+        public string PhotoType { get; set; }
+        public byte[] Photo { get; set; }
 
-        [ForeignKey("Certificate")]
-        public int? CertificateId { get; set; }
-
-        public IList<MarkEIE> MarkEIEs { set; get; }
+        public IList<MarkSubject> MarkSubjects { set; get; }
 
         public Enrollee()
         {
-            MarkEIEs = new List<MarkEIE>();
+            MarkSubjects = new List<MarkSubject>();
         }
     }
 }

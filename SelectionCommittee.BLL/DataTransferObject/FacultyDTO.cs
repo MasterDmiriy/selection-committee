@@ -9,12 +9,12 @@ namespace SelectionCommittee.BLL.DataTransferObject
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public SubjectEIEDTO FirstSubjectEIE { get; set; }
+        public SubjectDTO FirstSubjectEIE { get; set; }
 
-        public SubjectEIEDTO SecondSubjectEIE { get; set; }
+        public SubjectDTO SecondSubjectEIE { get; set; }
 
-        public SubjectEIEDTO ThirdSubjectEIE { get; set; }
+        public SubjectDTO ThirdSubjectEIE { get; set; }
 
-        public SubjectEIEDTO FourthSubjectEIE { get; set; }
+        public SubjectDTO FourthSubjectEIE { get; set; }
     }
 }

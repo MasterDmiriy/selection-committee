@@ -3,21 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SelectionCommittee.DAL.Entities
 {
-    public class MarkEIE
+    public class MarkSubject
     {
-        [Key]
+        [Key] 
         public int Id { get; set; }
 
-        public SubjectEIE SubjectEIE { get; set; }
+        public Subject Subject { get; set; }
 
-        [ForeignKey("SubjectEIE")]
-        public int SubjectEIEId { get; set; }
+        [ForeignKey("Subject")] 
+        public int SubjectId { get; set; }
 
-        public int Mark { get; set; }
-
-        public Enrollee Enrollee { set; get; }
-
+        public Enrollee Enrollee { get; set; }
         [ForeignKey("Enrollee")]
         public string EnrolleeId { get; set; }
+
+        public int Mark { set; get; }
     }
 }

@@ -33,14 +33,10 @@ namespace SelectionCommittee.BLL.Services
             return new RegionService(_database);
         }
 
-        public ISubjectCertificateService CreateSubjectCertificateService()
-        {
-            return new SubjectCertificateService(_database);
-        }
 
-        public ISubjectEIEService CreateSubjectEIEService()
+        public ISubjectService CreateSubjectService()
         {
-            return new SubjectEIEService(_database);
+            return new SubjectService(_database);
         }
     }
 }

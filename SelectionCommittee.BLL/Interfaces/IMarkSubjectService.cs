@@ -5,8 +5,8 @@ using System.Text;
 
 namespace SelectionCommittee.BLL.Interfaces
 {
-    public interface IMarkEIEService
+    public interface IMarkSubjectService
     {
-        void CreateRange(IEnumerable<MarkEIEDTO> marksEIEDTO);
+        void CreateRange(IEnumerable<MarkSubjectDTO> markSubjectsDTO);
     }
 }

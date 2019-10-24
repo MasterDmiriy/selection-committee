@@ -1,0 +1,26 @@
+﻿@model SelectionCommittee.WEB.Models.LoginModel
+
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_LogInSignUpLayout.cshtml";
+}
+<div class="container w-25">
+    <form method="post" autocomplete="false">
+        @Html.AntiForgeryToken()
+        <h1 class="text-center">Login</h1>
+        <hr>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, "Email")
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, "Email")
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-row text-center">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </div>
+    </form>
+</div>

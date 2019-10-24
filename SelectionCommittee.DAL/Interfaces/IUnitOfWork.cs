@@ -8,8 +8,7 @@ namespace SelectionCommittee.DAL.Interfaces
         ApplicationUserManager UserManager { get; }
         IEnrolleeManager EnrolleeManager { get; }
         ApplicationRoleManager RoleManager { get; }
-
-        ICertificateRepository CertificateRepository { get; }
+        IFacultySubjectRepository FacultySubjectRepository { get; }
 
         ICityRepository CityRepository { get; }
 
@@ -23,13 +22,9 @@ namespace SelectionCommittee.DAL.Interfaces
 
         IStatementRepository StatementRepository { get; }
 
-        ISubjectCertificateRepository SubjectCertificateRepository { get; }
+        ISubjectRepository SubjectRepository { get; }
 
-        ISubjectEIERepository SubjectEIERepository { get; }
-
-        IMarkSubjectCertificateRepository MarkSubjectCertificateRepository { get; }
-
-        IMarkEIERepository MarkEIERepository { get; }
+        IMarkSubjectRepository MarkSubjectRepository { get; }
 
         void Save();
         Task SaveAsync();

@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using SelectionCommittee.DAL.Entities;
 using SelectionCommittee.DAL.EntityFramework;
 using SelectionCommittee.DAL.Interfaces;
 
 namespace SelectionCommittee.DAL.Repositories
 {
-    class CertificateRepository : ICertificateRepository
+    public class MarkSubjectRepository : IMarkSubjectRepository
     {
         private ApplicationContext _context;
-        public CertificateRepository(ApplicationContext db)
+        public MarkSubjectRepository(ApplicationContext db)
         {
             _context = db;
         }
 
-        public void Create(Certificate certificate)
+        public void CreateRange(IEnumerable<MarkSubject> markSubjects)
         {
-            _context.Certificates.Add(certificate);
+            _context.MarkSubjects.AddRange(markSubjects);
         }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace SelectionCommittee.DAL.Interfaces
 {
-    public interface IMarkEIERepository
+    public interface IMarkSubjectRepository
     {
-        void CreateRange(IEnumerable<MarkEIE> marksEIE);
+        void CreateRange(IEnumerable<MarkSubject> markSubjects);
     }
 }

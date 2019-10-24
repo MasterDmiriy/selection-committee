@@ -7,7 +7,6 @@ namespace SelectionCommittee.BLL.Interfaces
         IRegionService CreateRegionService();
         ICityService CreateCityService();
         IEducationalInstitutionService CreateEducationalInstitutionService();
-        ISubjectCertificateService CreateSubjectCertificateService();
-        ISubjectEIEService CreateSubjectEIEService();
+        ISubjectService CreateSubjectService();
     }
 }

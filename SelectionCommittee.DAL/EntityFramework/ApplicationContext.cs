@@ -38,22 +38,19 @@ namespace SelectionCommittee.DAL.EntityFramework
 
         public DbSet<Region> Regions { get; set; }
 
-        public DbSet<Certificate> Certificates { get; set; }
-
         public DbSet<EducationalInstitution> EducationalInstitutions { get; set; }
 
         public DbSet<Faculty> Faculties { get; set; }
-
-        public DbSet<MarkEIE> MarkEIEs { get; set; }
 
         public DbSet<Specialty> Specialties { get; set; }
 
         public DbSet<Statement> Statements { get; set; }
 
-        public DbSet<SubjectCertificate> SubjectCertificates { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
-        public DbSet<SubjectEIE> SubjectEIEs { get; set; }
+        public  DbSet<MarkSubject> MarkSubjects { set; get; }
 
-        public  DbSet<MarkSubjectCertificate> MarkSubjectCertificates { set; get; }
+        public DbSet<TypeSubject> TypeSubjects { get; set; }
+        public DbSet<FacultySubject> FacultySubjects { set; get; }
     }
 }

@@ -1,12 +1,11 @@
-﻿@using SelectionCommittee.DAL.Entities
-@model SelectionCommittee.WEB.Models.DefaultModel
+﻿@model SelectionCommittee.WEB.Models.RegisterModel
 
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LogInSignUpLayout.cshtml";
 }
-
-    <form method="post">
+    <div class="container w-50">
+    <form method="post" autocomplete="false">
         @Html.AntiForgeryToken()
         <h1 class="text-center">Register</h1>
         <hr>
@@ -32,7 +31,7 @@
                     <option value="0" disabled selected>Выберите город</option>
                     @foreach (var city in Model.Cities)
                     {
-                        <option value=@city.Id>@city.Name</option>
+                        <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
                     }
                 </select>
             </div>
@@ -79,21 +78,22 @@
             </div>
         </div>
     </form>
+    </div>
 
-<script>
-    $("#City")
-        .change(function() {
-            $('#Region option:selected').each(function() {
-                this.selected = false;
-            });
-            $("#Region [value=" + this.value + "]").prop("selected", true);
-        });
+        <script>
+            $("#City")
+                .change(function () {
+                    $('#Region option:selected').each(function () {
+                        this.selected = false;
+                    });
+                    $("#Region [value=" + $(this).find('option:selected').data("regionid") + "]").prop("selected", true);
+                });
 
-    $("#Region")
-        .change(function() {
-            $('#City option:selected').each(function() {
-                this.selected = false;
-            });
-            $("#City [value='0']").prop("selected", true);
-        });
-</script>
+            $("#Region")
+                .change(function () {
+                    $('#City option:selected').each(function () {
+                        this.selected = false;
+                    });
+                    $("#City [value='0']").prop("selected", true);
+                });
+        </script>

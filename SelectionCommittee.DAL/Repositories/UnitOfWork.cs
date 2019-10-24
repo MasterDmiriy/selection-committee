@@ -14,17 +14,15 @@ namespace SelectionCommittee.DAL.Repositories
         private ApplicationRoleManager _applicationRoleManager;
         private ApplicationUserManager _applicationUserManager;
         private IEnrolleeManager _enrolleeManager;
-        private ICertificateRepository _certificateRepository;
         private ICityRepository _cityRepository;
         private IEducationalInstitutionRepository _educationalInstitutionRepository;
         private IFacultyRepository _facultyRepository;
         private IRegionRepository _regionRepository;
         private ISpecialtyRepository _specialtyRepository;
         private IStatementRepository _statementRepository;
-        private ISubjectCertificateRepository _subjectCertificateRepository;
-        private ISubjectEIERepository _subjectEIERepository;
-        private IMarkSubjectCertificateRepository _markSubjectCertificateRepository;
-        private IMarkEIERepository _markEIERepository;
+        private ISubjectRepository _subjectRepository;
+        private IMarkSubjectRepository _markSubjectRepository;
+        private IFacultySubjectRepository _facultySubjectRepository;
 
         public UnitOfWork(string strConnection)
         {
@@ -32,26 +30,24 @@ namespace SelectionCommittee.DAL.Repositories
             _applicationUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_db));
             _applicationRoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(_db));
             _enrolleeManager = new EnrolleeManager(_db);
-            _certificateRepository = new CertificateRepository(_db);
             _cityRepository = new CityRepository(_db);
             _educationalInstitutionRepository = new EducationalInstitutionRepository(_db);
             _facultyRepository = new FacultyRepository(_db);
             _regionRepository = new RegionRepository(_db);
             _specialtyRepository = new SpecialtyRepository(_db);
             _statementRepository = new StatementRepository(_db);
-            _subjectCertificateRepository = new SubjectCertificateRepository(_db);
-            _subjectEIERepository = new SubjectEIERepository(_db);
-            _markSubjectCertificateRepository = new MarkSubjectCertificateRepository(_db);
-            _markEIERepository = new MarkEIERepository(_db);
+            _subjectRepository = new SubjectRepository(_db);
+            _markSubjectRepository = new MarkSubjectRepository(_db);
+            _facultySubjectRepository = new FacultySubjectRepository(_db);
         }
+
+        
 
         public ApplicationUserManager UserManager => _applicationUserManager;
 
         public IEnrolleeManager EnrolleeManager => _enrolleeManager;
 
         public ApplicationRoleManager RoleManager => _applicationRoleManager;
-
-        public ICertificateRepository CertificateRepository => _certificateRepository;
 
         public ICityRepository CityRepository => _cityRepository;
 
@@ -65,12 +61,11 @@ namespace SelectionCommittee.DAL.Repositories
 
         public IStatementRepository StatementRepository => _statementRepository;
 
-        public ISubjectCertificateRepository SubjectCertificateRepository => _subjectCertificateRepository;
+        public ISubjectRepository SubjectRepository => _subjectRepository;
 
-        public ISubjectEIERepository SubjectEIERepository => _subjectEIERepository;
-        public IMarkSubjectCertificateRepository MarkSubjectCertificateRepository => _markSubjectCertificateRepository;
+        public IMarkSubjectRepository MarkSubjectRepository => _markSubjectRepository;
 
-        public IMarkEIERepository MarkEIERepository => _markEIERepository;
+        public IFacultySubjectRepository FacultySubjectRepository => _facultySubjectRepository;
 
         public void Save()
         {
