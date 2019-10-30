@@ -26,9 +26,16 @@ namespace SelectionCommittee.BLL.Services
                 BudgetPlaces = specialtyDTO.BudgetPlaces,
                 TotalPlaces = specialtyDTO.TotalPlaces,
                 Photo = specialtyDTO.Photo,
-                FacultyId = specialtyDTO.FacultyId
+                FacultyId = specialtyDTO.FacultyId,
+                Description = specialtyDTO.Description
             };
             _database.SpecialtyRepository.Create(specialty);
+            _database.Save();
+        }
+
+        public void Delete(int id)
+        {
+            _database.SpecialtyRepository.Delete(id);
             _database.Save();
         }
 
@@ -40,12 +47,14 @@ namespace SelectionCommittee.BLL.Services
             {
                 specialtyDTO.Add(new SpecialtyDTO
                 {
+                    Id = specialty.Id,
                     Number = specialty.Number,
                     Name = specialty.Name,
                     BudgetPlaces = specialty.BudgetPlaces,
                     TotalPlaces = specialty.TotalPlaces,
                     Photo = specialty.Photo,
-                    FacultyId = specialty.FacultyId
+                    FacultyId = specialty.FacultyId,
+                    Description = specialty.Description
                 });
             }
             return specialtyDTO;
@@ -60,12 +69,14 @@ namespace SelectionCommittee.BLL.Services
             {
                 specialtyDTO.Add(new SpecialtyDTO
                 {
+                    Id = specialty.Id,
                     Number = specialty.Number,
                     Name = specialty.Name,
                     BudgetPlaces = specialty.BudgetPlaces,
                     TotalPlaces = specialty.TotalPlaces,
                     Photo = specialty.Photo,
-                    FacultyId = specialty.FacultyId
+                    FacultyId = specialty.FacultyId,
+                    Description = specialty.Description
                 });
             }
             return specialtyDTO;
@@ -76,13 +87,32 @@ namespace SelectionCommittee.BLL.Services
             var specialty = _database.SpecialtyRepository.Get(id);
             return new SpecialtyDTO
             {
+                Id = specialty.Id,
                 Number = specialty.Number,
                 Name = specialty.Name,
                 BudgetPlaces = specialty.BudgetPlaces,
                 TotalPlaces = specialty.TotalPlaces,
                 Photo = specialty.Photo,
-                FacultyId = specialty.FacultyId
+                FacultyId = specialty.FacultyId,
+                Description = specialty.Description
             };
+        }
+
+        public void Update(SpecialtyDTO specialtyDTO)
+        {
+            var specialty = new Specialty
+            {
+                Id = specialtyDTO.Id,
+                Number = specialtyDTO.Number,
+                Name = specialtyDTO.Name,
+                BudgetPlaces = specialtyDTO.BudgetPlaces,
+                TotalPlaces = specialtyDTO.TotalPlaces,
+                Photo = specialtyDTO.Photo,
+                FacultyId = specialtyDTO.FacultyId,
+                Description = specialtyDTO.Description
+            };
+            _database.SpecialtyRepository.Update(specialty);
+            _database.Save();
         }
     }
 }

@@ -29,12 +29,13 @@ namespace SelectionCommittee.DAL.Repositories
 
         public Faculty Get(int id)
         {
-            return _context.Faculties.Find(id);
+            return _context.Faculties.Include(faculty => faculty.FacultySubjects)
+                .FirstOrDefault(faculty => faculty.Id == id);
         }
 
         public IEnumerable<Faculty> GetAll()
         {
-            return _context.Faculties.ToList();
+            return _context.Faculties.Include(faculty => faculty.FacultySubjects).ToList();
         }
 
         public void Update(Faculty faculty)

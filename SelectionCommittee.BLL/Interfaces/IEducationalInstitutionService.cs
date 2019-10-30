@@ -5,6 +5,6 @@ namespace SelectionCommittee.BLL.Interfaces
 {
     public interface IEducationalInstitutionService
     {
-        IEnumerable<EducationalInstitutionDTO> GetEducationalInstitutions();
+       IDictionary<string,IEnumerable<EducationalInstitutionDTO>> GetEducationalInstitutions();
     }
 }

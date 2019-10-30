@@ -12,6 +12,11 @@ namespace SelectionCommittee.BLL.Interfaces
 
         FacultyDTO GetById(int id);
 
+
+        void Delete(int facultyId);
+
+        void Update(FacultyDTO facultyDTO);
+
         void Create(FacultyDTO facultyDTO);
 
         bool IsExist(int facultyDTOId);

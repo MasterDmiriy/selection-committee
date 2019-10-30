@@ -2,6 +2,7 @@
 using SelectionCommittee.BLL.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace SelectionCommittee.BLL.Interfaces
@@ -13,6 +14,10 @@ namespace SelectionCommittee.BLL.Interfaces
         SpecialtyDTO GetById(int id);
 
         IEnumerable<SpecialtyDTO> GetByFacultyId(int facultyDTOId);
+
+        void Delete(int id);
+
+        void Update(SpecialtyDTO specialtyDTO);
 
         void Create(SpecialtyDTO specialtyDTO);
     }

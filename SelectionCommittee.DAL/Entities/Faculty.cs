@@ -10,10 +10,14 @@ namespace SelectionCommittee.DAL.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Photo { get; set; }
+        public string Description { get; set; }
+        public ICollection<FacultySubject> FacultySubjects { get; set; }
         public IList<Specialty> Specialties { get; set; }
 
         public Faculty()
         {
+            FacultySubjects = new List<FacultySubject>();
             Specialties = new List<Specialty>();
         }
     }

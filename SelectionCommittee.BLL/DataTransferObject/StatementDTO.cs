@@ -9,5 +9,7 @@ namespace SelectionCommittee.BLL.DataTransferObject
         public string EnrolleeId { get; set; }
 
         public int SpecialtyId { get; set; }
+
+        public int Priority { get; set; }
     }
 }

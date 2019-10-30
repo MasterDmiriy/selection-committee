@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SelectionCommittee.WEB.Models.DisplayFaculty>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Добавить факультет", "CreateFaculty")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Первый предмет</th>
+            <th scope="col">Второй предмет</th>
+            <th scope="col">Третий предмет</th>
+            <th scope="col">Количество специальностей</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @if(Model.Count()==0)
+    {
+        <tr>
+            <td colspan="2">Нет еще ни одного факультета</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var faculty in Model)
+        {
+    <tr>
+        <td>@faculty.Name</td>
+        @foreach (var subject in faculty.Subjects)
+        {
+            <td>@subject</td>
+        }
+        <td>@faculty.CountSpeciality</td>
+        <td>
+            @Html.ActionLink("Специальности", "Specialties", new { facultyId = @faculty.Id })
+            @Html.ActionLink("Изменить", "EditFaculty", new { facultyId = @faculty.Id })
+            @Html.ActionLink("Удалить", "DeleteFaculty", new { facultyId = @faculty.Id })
+        </td>
+    </tr>
+        }
+    }
+    </tbody>
+</table>

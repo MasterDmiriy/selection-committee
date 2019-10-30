@@ -1,0 +1,63 @@
+﻿@model SelectionCommittee.WEB.Models.CreateSpecialty
+
+@{
+    ViewBag.Title = "CreateSpecialty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("CreateSpecialty", "Admin", FormMethod.Post, 
+    new { enctype = "multipart/form-data", autocomplete = "on" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m=>m.FacultyId)
+    <h1 class="text-center">Форма добавления факультета</h1>
+    <hr />
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.Number, "Номер специальности")
+            @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.Name,"Название специальности")
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 ">
+            @Html.LabelFor(model => model.BudgetPlaces, "Количество бюджетных мест")
+            @Html.EditorFor(model => model.BudgetPlaces, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BudgetPlaces, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.TotalPlaces, "Всего мест")
+            @Html.EditorFor(model => model.TotalPlaces, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TotalPlaces, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, "Описание специальности")
+        @Html.TextAreaFor(model => model.Description, 9, 9, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <div class="custom-file">
+            <input type="file" name="image" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Выберите картинку</label>
+        </div>
+    </div>
+
+    <div class="form-row text-center">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Вернутся к специальностям", "Specialties", new {facultyId = Model.FacultyId})
+</div>

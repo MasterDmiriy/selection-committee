@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.Entity;
 using System.Linq;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SelectionCommittee.DAL.Entities;
+using SelectionCommittee.DAL.Identity;
 
 namespace SelectionCommittee.DAL.EntityFramework
 {
@@ -11,6 +14,26 @@ namespace SelectionCommittee.DAL.EntityFramework
     {
         protected override void Seed(ApplicationContext context)
         {
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var role1 = new IdentityRole { Name = "admin" };
+            var role2 = new IdentityRole { Name = "enrollee" };
+
+            roleManager.Create(role1);
+            roleManager.Create(role2);
+
+            var admin = new ApplicationUser { Email = "admin@gmail.com", UserName = "admin@gmail.com" };
+            string password = "qwErTy916";
+            var result = userManager.Create(admin, password);
+
+            if (result.Succeeded)
+            {
+                userManager.AddToRole(admin.Id, role1.Name);
+            }
+
+
             IEnumerable<TypeSubject> typeSubjects = new List<TypeSubject>
             {
                 new TypeSubject
@@ -494,89 +517,112 @@ namespace SelectionCommittee.DAL.EntityFramework
                 {
                     Name =
                         "Львівський фізико-математичний ліцей-інтернат при Львівському національному університеті імені Івана Франка",
-                    CityId = 22
+                    RegionId = 22,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Ліцей \"Інтелект\"",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Природничо-науковий ліцей №145 Печерського р-ну м. Києва",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Технічний ліцей Національного технічного університету України \"Київський політехнічний інститут\" Солом’янського р-ну м.Києва",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "КЗ освіти \"Дніпровський ліцей інформаційних технологій при Дніпровському національному" +
                         " університеті імені Олеся Гончара\" Дніпровської міськради",
-                    CityId = 26
+                    RegionId = 24,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Український фізико-математичний ліцей Київського національного університету імені Т.Шевченка",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Український гуманітарний ліцей Київського національного університету імені Тараса Шевченка",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Гімназія №178 Солом’янського р-ну м.Києва",
-                    CityId = 2
+                    RegionId = 2,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "КЗ \"Харківський фізико-математичний ліцей № 27 Харківської міськради Харківської обл.\"",
-                    CityId = 1
+                    RegionId = 1,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Українська гімназія № 1 Івано-Франківської міськради Івано-Франківської обл.",
-                    CityId = 21
+                    RegionId = 21,
+                    IsCity = false
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Черкаський фізико-математичний ліцей (ФІМЛІ) Черкаської міськради Черкаської обл.",
-                    CityId = 13
+                    RegionId = 13,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Львівська академічна гімназія при Національному університеті \"Львівська політехніка\"",
-                    CityId = 22
-                },
-                new EducationalInstitution
-                {
-                    Name =
-                        "Кіровоградський обласний НВК (гімназія-інтернат-школа мистецтв)",
-                    CityId = 32
+                    RegionId = 22,
+                    IsCity = true
                 },
                 new EducationalInstitution
                 {
                     Name =
                         "Волинський науковий ліцей-інтернат Волинської обласної ради",
-                    CityId = 19
+                    RegionId = 19,
+                    IsCity = true
+                },
+                new EducationalInstitution
+                {
+                    Name =
+                        "Каховський НВК «Гімназія-спеціалізована школа І ст. з " +
+                        "поглибленим вивченням іноземних мов» Каховської міськради Херсонської обл.",
+                    RegionId = 7,
+                    IsCity = false
+                },
+                new EducationalInstitution
+                {
+                    Name =
+                        "Дрогобицька гімназія імені Богдана Лепкого Дрогобицької міськради Львівської обл.",
+                    RegionId = 22,
+                    IsCity = false
                 }
+
             };
-            context.EducationalInstitutions.AddRange(educationalInstitutions.OrderBy(obj => obj.CityId));
+            context.EducationalInstitutions.AddRange(educationalInstitutions);
             context.SaveChanges();
 
            

@@ -30,8 +30,7 @@ namespace SelectionCommittee.DAL.Entities
         [ForeignKey("EducationalInstitution")]
         public int EducationalInstitutionId { get; set; }
 
-        public string PhotoType { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         public IList<MarkSubject> MarkSubjects { set; get; }
 

@@ -57,19 +57,22 @@ namespace SelectionCommittee.WEB.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    return RedirectToAction("Index", "Home");
+                    if (User.IsInRole("admin"))
+                        return RedirectToAction("Faculties", "Admin");
+                    return RedirectToAction("Home", "SelectionCommittee");
                 }
             }
             return View(model);
         }
 
+        private RegisterModel necessaryModel;
         public ActionResult Register()
         {
-            RegisterModel model = new RegisterModel();
-            model.Cities = _creator.CreateCityService().GetCities();
-            model.Regions = _creator.CreateRegionService().GetRegions();
-            model.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
-            return View(model);
+            necessaryModel = new RegisterModel();
+            necessaryModel.Cities = _creator.CreateCityService().GetCities();
+            necessaryModel.Regions = _creator.CreateRegionService().GetRegions();
+            necessaryModel.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
+            return View(necessaryModel);
         }
 
         [HttpPost]
@@ -97,6 +100,10 @@ namespace SelectionCommittee.WEB.Controllers
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
+
+            model.Cities = necessaryModel.Cities;
+            model.Regions = necessaryModel.Regions;
+            model.EducationalInstitutions = necessaryModel.EducationalInstitutions;
             return View(model);
         }
     }

@@ -38,5 +38,26 @@ namespace SelectionCommittee.BLL.Services
         {
             return new SubjectService(_database);
         }
+
+        public IFacultyService CreateFacultyService()
+        {
+            return new FacultyService(_database);
+        }
+
+        public ISpecialtyService CreateSpecialtyService()
+        {
+           return new SpecialtyService(_database);
+        }
+
+        public IStatementService CreateStatementService()
+        {
+            return new StatementService(_database);
+        }
+
+        public IMarkSubjectService CreateMarkSubjectService()
+        {
+            return new MarkSubjectService(_database);
+        }
+
     }
 }

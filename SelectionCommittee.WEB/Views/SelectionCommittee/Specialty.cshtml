@@ -1,0 +1,18 @@
+﻿@model SelectionCommittee.WEB.Models.DisplaySpecialty
+@{
+    ViewBag.Title = "Specialty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-uppercase">Специальность @Model.Number - @Model.Name</h1>
+@*<p>Для поступления на любую специальность данного факультета нужно иметь баллы по таким предметам ВНО</p>
+    <ul>
+        @foreach (var str in Model.Subjects)
+        {
+            <li>@str</li>
+        }
+    </ul>*@
+<p>@Model.Description</p>
+
+@Html.ActionLink("Подать заявление", "", new {specialtyId = Model.Id})
+

@@ -14,7 +14,7 @@ namespace SelectionCommittee.DAL.Entities
 
         public Subject Subject { get; set; }
         [ForeignKey("Subject")]
-        public int SubjectId { get; set; }
+        public int? SubjectId { get; set; }
 
         public int PositionSubject { get; set; }
     }

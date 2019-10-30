@@ -1,0 +1,110 @@
+﻿@using System.Drawing
+@model SelectionCommittee.WEB.Models.EditFaculty
+
+@{
+    ViewBag.Title = "EditFaculty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditFaculty", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h1 class="text-center">Форма редактирования факультета</h1>
+    <hr />
+    @Html.HiddenFor(m=>m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Название факультета")
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="FacultySubjects[0].SubjectId">Первый предмет</label>
+            @Html.HiddenFor(m => m.FacultySubjects[0].PositionSubject)
+            @Html.HiddenFor(m => m.FacultySubjects[0].Id)
+            <select id="Subject1" name="FacultySubjects[0].SubjectId" class="form-control">
+                @foreach (var subject in Model.Subjects)
+                {
+                    if (subject.Id == Model.FacultySubjects[0].SubjectId)
+                    {
+                        <option value=@subject.Id selected>@subject.Name</option>
+                    }
+                    else
+                    {
+                        <option value=@subject.Id>@subject.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        @for (int i = 1; i < 5; i += 2)
+        {
+            <div class="form-group col-md-4">
+
+                @for (int j = 0; j < 2; j++)
+                {
+                    <div class="form-group">
+                        @if ((i + j) == 1)
+                        {
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Второй предмет</label>
+                        }
+                        else if ((i + j) == 3)
+                        {
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Третий предмет</label>
+                        }
+                        else
+                        {
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Дополнительный предмет</label>
+                        }
+                        @Html.HiddenFor(m=>m.FacultySubjects[i+j].PositionSubject)
+                        @Html.HiddenFor(m=>m.FacultySubjects[i+j].Id)
+                        <select id=@String.Format($"Subject{i + j + 1}") name=@String.Format($"FacultySubjects[{i + j}].SubjectId")
+                                class="form-control">
+                            @if (Model.FacultySubjects[i + j].SubjectId!=0)
+                            {
+                                foreach (var subject in Model.Subjects)
+                                {
+                                    if (subject.Id == Model.FacultySubjects[i + j].SubjectId)
+                                    {
+                                        <option value=@subject.Id selected>@subject.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=@subject.Id>@subject.Name</option>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <option value="0" disabled selected>Выберите предмет</option>
+                                foreach (var subject in Model.Subjects)
+                                {
+                                    <option value=@subject.Id>@subject.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                }
+
+
+            </div>
+
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Subjects, "Описание факультета")
+        @Html.TextAreaFor(m => m.Description, 9, 9, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <div class="custom-file">
+            <input type="file" name="image" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Выберите картинку</label>
+        </div>
+        @Html.HiddenFor(m=>m.Photo)
+        <h2 class="mt-3">Изображение факультета на данный момент</h2>
+        <img src="@Model.Photo"/>
+    </div>
+    <div class="form-row text-center mb-5">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Изменить</button>
+        </div>
+    </div>
+}

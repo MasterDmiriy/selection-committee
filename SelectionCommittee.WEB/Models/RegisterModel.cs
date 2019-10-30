@@ -7,6 +7,7 @@ namespace SelectionCommittee.WEB.Models
     public class RegisterModel
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -23,12 +24,13 @@ namespace SelectionCommittee.WEB.Models
         public string Patronymic { get; set; }
         public int CityId { get; set; }
 
+        [Required]
         public int RegionId { get; set; }
         [Required]
         public int EducationalInstitutionId { get; set; }
 
         public IEnumerable<CityDTO> Cities { set; get; }
         public IEnumerable<RegionDTO> Regions { get; set; }
-        public IEnumerable<EducationalInstitutionDTO> EducationalInstitutions { set; get; }
+        public IDictionary<string,IEnumerable<EducationalInstitutionDTO>> EducationalInstitutions { set; get; }
     }
 }

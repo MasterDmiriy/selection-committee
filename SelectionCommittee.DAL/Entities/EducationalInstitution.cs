@@ -10,9 +10,11 @@ namespace SelectionCommittee.DAL.Entities
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public City City { get; set; }
-        [ForeignKey("City")]
-        public int CityId { set; get; }
+        public Region Region { get; set; }
+        [ForeignKey("Region")]
+        public int RegionId { set; get; }
+
+        public bool IsCity { get; set; }
         public ICollection<Enrollee> Enrollees { set; get; }
 
         public EducationalInstitution()

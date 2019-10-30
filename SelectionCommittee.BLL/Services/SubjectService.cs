@@ -39,5 +39,26 @@ namespace SelectionCommittee.BLL.Services
             }));
             return Subjects;
         }
+
+        public IEnumerable<string> GetSubjectsNamesEIE(IEnumerable<FacultySubjectDTO> facultySubjects)
+        {
+            List<string> subjects = new List<string>();
+            IEnumerable<SubjectDTO> subjectsEIE = GetSubjectsEIE();
+
+            var facultySubjectsDTO = facultySubjects.OrderBy(sub => sub.PositionSubject).ToList();
+
+            subjects.Add(subjectsEIE.First(subject => subject.Id == facultySubjectsDTO[0].SubjectId).Name);
+            for (int i = 1; i < 5; i+=2)
+            {
+                if (facultySubjectsDTO[i+1].SubjectId!=0)
+                {
+                    subjects.Add(subjectsEIE.First(subject => subject.Id == facultySubjectsDTO[i].SubjectId).Name + " или " +
+                                 subjectsEIE.First(subject => subject.Id == facultySubjectsDTO[i+1].SubjectId).Name);
+                }
+                else subjects.Add(subjectsEIE.First(subject => subject.Id == facultySubjectsDTO[i].SubjectId).Name);
+            }
+
+            return subjects;
+        }
     }
 }

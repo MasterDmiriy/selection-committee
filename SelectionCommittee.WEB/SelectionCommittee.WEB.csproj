@@ -88,7 +88,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
@@ -132,6 +131,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Faculty.css" />
     <Content Include="Content\Image\15505.jpg" />
     <Content Include="Content\Image\selection-committee-home.jpg" />
     <Content Include="Content\Site.css" />
@@ -163,6 +163,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -178,10 +183,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\SelectionCommitteeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateFaculty.cs" />
+    <Compile Include="Models\CreateFacultyPost.cs" />
+    <Compile Include="Models\CreateSpecialty.cs" />
+    <Compile Include="Models\DisplayFaculty.cs" />
+    <Compile Include="Models\DisplayFullFaculty.cs" />
+    <Compile Include="Models\DisplayHome.cs" />
+    <Compile Include="Models\DisplaySpecialty.cs" />
+    <Compile Include="Models\EditFaculty.cs" />
+    <Compile Include="Models\EditSpecialty.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,7 +206,7 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\SelectionCommittee\Home.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -206,6 +221,16 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_LogInSignUpLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Admin\Faculties.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\Specialties.cshtml" />
+    <Content Include="Views\Admin\CreateFaculty.cshtml" />
+    <Content Include="Views\Admin\CreateSpecialty.cshtml" />
+    <Content Include="Views\Admin\EditFaculty.cshtml" />
+    <Content Include="Views\Admin\EditSpecialty.cshtml" />
+    <Content Include="Views\SelectionCommittee\DropDownFaculties.cshtml" />
+    <Content Include="Views\SelectionCommittee\Faculty.cshtml" />
+    <Content Include="Views\SelectionCommittee\Specialty.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,6 +240,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Image\Faculties\" />
+    <Folder Include="Content\Image\Specialties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SelectionCommittee.BLL\SelectionCommittee.BLL.csproj">

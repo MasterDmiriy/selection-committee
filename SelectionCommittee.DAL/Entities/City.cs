@@ -12,14 +12,12 @@ namespace SelectionCommittee.DAL.Entities
         [ForeignKey("Region")]
         public int RegionId { get; set; }
         public Region Region { get; set; }
-        public IList<EducationalInstitution> EducationalInstitutions { set; get; }
 
         public  ICollection<Enrollee> Enrollees { set; get; }
 
         public City()
         {
             Enrollees = new List<Enrollee>();
-            EducationalInstitutions = new List<EducationalInstitution>();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace SelectionCommittee.DAL.Interfaces
         void CreateRange(IEnumerable<FacultySubject> facultySubjects);
 
         IEnumerable<FacultySubject> GetAllByFacultyId(int facultyId);
+
+        void UpdateRange(IEnumerable<FacultySubject> facultySubjects);
     }
 }

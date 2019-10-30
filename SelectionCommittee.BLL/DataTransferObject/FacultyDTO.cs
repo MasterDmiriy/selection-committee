@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,12 +10,14 @@ namespace SelectionCommittee.BLL.DataTransferObject
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public SubjectDTO FirstSubjectEIE { get; set; }
+        public string Photo { get; set; }
 
-        public SubjectDTO SecondSubjectEIE { get; set; }
+        public ICollection<FacultySubjectDTO> FacultySubjects { get; set; }
+        public string Description { get; set; }
 
-        public SubjectDTO ThirdSubjectEIE { get; set; }
-
-        public SubjectDTO FourthSubjectEIE { get; set; }
+        public FacultyDTO()
+        {
+            FacultySubjects = new List<FacultySubjectDTO>();
+        }
     }
 }

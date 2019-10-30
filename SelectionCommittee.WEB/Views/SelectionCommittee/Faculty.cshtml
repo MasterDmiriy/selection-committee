@@ -1,0 +1,27 @@
+﻿@model SelectionCommittee.WEB.Models.DisplayFullFaculty
+@{
+    ViewBag.Title = "Faculty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section style
+{
+    <link href="~/Content/Faculty.css" rel="stylesheet" type="text/css" />
+}
+
+<h1 class="text-uppercase">Факультет @Model.Name</h1>
+<p>Для поступления на любую специальность данного факультета нужно иметь баллы по таким предметам ВНО</p>
+<ul>
+    @foreach (var str in Model.Subjects)
+    {
+        <li>@str</li>
+    }
+</ul>
+<p>@Model.Description</p>
+<h2>Специальности</h2>
+
+@foreach (var specialty in Model.SpecialtiesDTO)
+{
+    @Html.ActionLink(specialty.Name, "Specialty", new {id = specialty.Id})
+}
+

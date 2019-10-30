@@ -23,7 +23,8 @@ namespace SelectionCommittee.BLL.Services
             _database.StatementRepository.Create(new Statement
             {
                 EnrolleeId = statementDTO.EnrolleeId,
-                SpecialtyId = statementDTO.SpecialtyId
+                SpecialtyId = statementDTO.SpecialtyId,
+                Priority = statementDTO.Priority
             });
             _database.Save();
         }

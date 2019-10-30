@@ -8,5 +8,10 @@ namespace SelectionCommittee.BLL.Interfaces
         ICityService CreateCityService();
         IEducationalInstitutionService CreateEducationalInstitutionService();
         ISubjectService CreateSubjectService();
+
+        IFacultyService CreateFacultyService();
+        ISpecialtyService CreateSpecialtyService();
+        IStatementService CreateStatementService();
+        IMarkSubjectService CreateMarkSubjectService();
     }
 }

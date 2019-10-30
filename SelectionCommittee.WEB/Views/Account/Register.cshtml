@@ -4,23 +4,27 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LogInSignUpLayout.cshtml";
 }
-    <div class="container w-50">
-    <form method="post" autocomplete="false">
+<div class="container w-50">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {autocomplete = "off"}))
+    {
         @Html.AntiForgeryToken()
         <h1 class="text-center">Register</h1>
         <hr>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="Name">Name</label>
-                <input type="text" class="form-control" id="Name" name="Name">
+                @Html.LabelFor(m=>m.Surname,"Фамилия")
+                @Html.EditorFor(m=>m.Surname, new {htmlAttributes = new { @class="form-control"}})
+                @Html.ValidationMessageFor(m=>m.Surname)
             </div>
             <div class="form-group col-md-4">
-                <label for="Surname">Surname</label>
-                <input type="text" class="form-control" id="Surname" name="Surname">
+                @Html.LabelFor(m => m.Name, "Имя")
+                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Name)
             </div>
             <div class="form-group col-md-4">
-                <label for="Patronymic">Patronymic</label>
-                <input type="text" class="form-control" id="Patronymic" name="Patronymic">
+                @Html.LabelFor(m => m.Patronymic, "Отчество")
+                @Html.EditorFor(m => m.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Patronymic)
             </div>
         </div>
 
@@ -28,48 +32,58 @@
             <div class="form-group col-md-6">
                 <label for="City">City</label>
                 <select id="City" name="CityId" class="form-control">
-                    <option value="0" disabled selected>Выберите город</option>
+                    <option value="" disabled selected>Выберите город</option>
                     @foreach (var city in Model.Cities)
                     {
                         <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
                     }
                 </select>
+                @Html.ValidationMessageFor(m => m.CityId)
             </div>
             <div class="form-group col-md-6">
                 <label for="Region">Region</label>
                 <select id="Region" name="RegionId" class="form-control">
-                    <option value="0" disabled selected>Выберите область</option>
+                    <option value="" disabled selected>Выберите область</option>
                     @foreach (var region in Model.Regions)
                     {
                         <option value=@region.Id>@region.Name</option>
 
                     }
                 </select>
+                @Html.ValidationMessageFor(m => m.RegionId)
             </div>
         </div>
         <div class="form-group">
             <label for="EducationalInstitution">EducationalInstitution</label>
             <select id="EducationalInstitution" name="EducationalInstitutionId" class="form-control">
-                <option value="0" disabled selected>Выберите учебное заведение</option>
-                @foreach (var educational in Model.EducationalInstitutions)
+                <option value="" disabled selected>Выберите учебное заведение</option>
+                @foreach (var educationals in Model.EducationalInstitutions)
                 {
-                    <option value=@educational.Id>@educational.Name</option>
-
+                    <optgroup label="@educationals.Key">
+                        @foreach (var educational in educationals.Value)
+                        {
+                            <option value=@educational.Id>@educational.Name</option>
+                        }
+                    </optgroup>
                 }
             </select>
+            @Html.ValidationMessageFor(m => m.EducationalInstitutionId)
         </div>
         <div class="form-group">
-            <label for="inputEmail4">Email</label>
-            <input type="email" name="Email" class="form-control" id="Email" placeholder="Email">
+            @Html.LabelFor(m => m.Email, "Email")
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Email)
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                @Html.LabelFor(m => m.Password, "Пароль")
+                @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Password)
             </div>
             <div class="form-group col-md-6">
-                <label for="ConfirmPassword">ConfirmPassword</label>
-                <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">
+                @Html.LabelFor(m => m.ConfirmPassword, "Подтвердите пароль")
+                @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </div>
         </div>
         <div class="form-row text-center">
@@ -77,8 +91,8 @@
                 <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
             </div>
         </div>
-    </form>
-    </div>
+    }
+</div>
 
         <script>
             $("#City")
@@ -94,6 +108,6 @@
                     $('#City option:selected').each(function () {
                         this.selected = false;
                     });
-                    $("#City [value='0']").prop("selected", true);
+                    $("#City [value='']").prop("selected", true);
                 });
         </script>

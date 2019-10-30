@@ -6,6 +6,7 @@ namespace SelectionCommittee.BLL.DataTransferObject
 {
     public class SpecialtyDTO
     {
+        public int Id { get; set; }
         public int Number { get; set; }
 
         public string Name { get; set; }
@@ -14,8 +15,10 @@ namespace SelectionCommittee.BLL.DataTransferObject
 
         public int TotalPlaces { get; set; }
 
-        public int FacultyId { get; set; }
+        public string Description { get; set; }
 
+        public int FacultyId { get; set; }
         public string Photo { get; set; }
+
     }
 }

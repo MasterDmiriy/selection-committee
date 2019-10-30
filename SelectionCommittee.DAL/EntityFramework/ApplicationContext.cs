@@ -19,8 +19,8 @@ namespace SelectionCommittee.DAL.EntityFramework
             modelBuilder.Entity<Region>().HasMany(r=>r.Cities)
                 .WithRequired(r=>r.Region).HasForeignKey(r=>r.RegionId)
                 .WillCascadeOnDelete(false);
-            modelBuilder.Entity<City>().HasMany(c=>c.EducationalInstitutions)
-                .WithRequired(c=>c.City).HasForeignKey(c=>c.CityId)
+            modelBuilder.Entity<Region>().HasMany(c=>c.EducationalInstitutions)
+                .WithRequired(c=>c.Region).HasForeignKey(c=>c.RegionId)
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<City>().HasMany(c=>c.Enrollees).
                 WithRequired(c=>c.City).HasForeignKey(c=>c.CityId).
@@ -28,7 +28,6 @@ namespace SelectionCommittee.DAL.EntityFramework
             modelBuilder.Entity<Region>().HasMany(r=>r.Enrollees)
                 .WithRequired(r=>r.Region).HasForeignKey(r=>r.RegionId)
                 .WillCascadeOnDelete(false);
-            
             base.OnModelCreating(modelBuilder);
         }
 

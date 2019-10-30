@@ -16,5 +16,7 @@ namespace SelectionCommittee.DAL.Entities
 
         [ForeignKey("Specialty")]
         public int SpecialtyId { get; set; }
+
+        public int Priority { get; set; }
     }
 }

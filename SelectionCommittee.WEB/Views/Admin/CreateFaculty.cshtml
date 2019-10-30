@@ -1,0 +1,96 @@
+﻿@model SelectionCommittee.WEB.Models.CreateFaculty
+@{
+    ViewBag.Title = "CreateFaculty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    bool flag;
+}
+
+@using (Html.BeginForm("CreateFaculty", "Admin", FormMethod.Post, 
+    new {enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    <h1 class="text-center">Форма добавления факультета</h1>
+    <hr/>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Название факультета")
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="FacultySubjects[0].SubjectId">Первый предмет</label>
+            @Html.Hidden("FacultySubjects[0].PositionSubject", 1)
+            <select id="Subject1" name="FacultySubjects[0].SubjectId" class="form-control" required>
+                <option value="" disabled selected>Выберите предмет</option>
+                @foreach (var subject in Model.Subjects)
+                {
+                    <option value=@subject.Id>@subject.Name</option>
+                }
+            </select>
+        </div>
+        @for (int i = 1; i < 5; i+=2)
+        {
+            <div class="form-group col-md-4">
+
+                @for (int j = 0; j < 2; j++)
+                {
+                    flag = true;
+                    <div class="form-group">
+                        @if ((i + j) == 1)
+                        {
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Второй предмет</label>
+                            @Html.Hidden($"FacultySubjects[{i + j}].PositionSubject", 2)
+                        }
+                        else if ((i + j) == 3)
+                        {
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Третий предмет</label>
+                            @Html.Hidden($"FacultySubjects[{i + j}].PositionSubject", 3)
+                        }
+                        else
+                        {
+                            flag = false;
+                            if ((i + j) == 2)
+                            {
+                                @Html.Hidden($"FacultySubjects[{i + j}].PositionSubject", 2)
+                            }
+                            else
+                            {
+                                @Html.Hidden($"FacultySubjects[{i + j}].PositionSubject", 3)
+                            }
+                            <label for=@String.Format($"FacultySubjects[{i + j}].SubjectId")>Дополнительный предмет</label>
+                        }
+                        <select id=@String.Format($"Subject{i + j+1}") name=@String.Format($"FacultySubjects[{i + j}].SubjectId")
+                                class="form-control custom-select" required=@flag>
+                            <option value="" disabled selected>Выберите предмет</option>
+                            @foreach (var subject in Model.Subjects)
+                            {
+                                <option value=@subject.Id>@subject.Name</option>
+                            }
+                        </select>
+                    </div>
+                }
+
+
+            </div>
+
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Subjects, "Описание факультета")
+        @Html.TextAreaFor(m => m.Description, 9, 9, new { @class = "form-control"})
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" name="image" class="custom-file-input" id="customFile" accept=".jpg, .jpeg, .png">
+                <label class="custom-file-label" for="customFile">Выберите картинку</label>
+            </div>
+        </div>
+        <div class="form-row text-center">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+        }
+

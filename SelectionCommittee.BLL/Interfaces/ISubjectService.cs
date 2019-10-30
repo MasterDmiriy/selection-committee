@@ -9,5 +9,7 @@ namespace SelectionCommittee.BLL.Interfaces
         //EIE - extern independent evalution
         IEnumerable<SubjectDTO> GetSubjectsEIE();
 
+        IEnumerable<string> GetSubjectsNamesEIE(IEnumerable<FacultySubjectDTO> facultySubjects);
+
     }
 }

@@ -6,6 +6,8 @@ namespace SelectionCommittee.DAL.Entities
      public class Specialty
     {
         [Key]
+        public int Id { get; set; }
+        
         public int Number { get; set; }
 
         public string Name { get; set; }
@@ -18,7 +20,7 @@ namespace SelectionCommittee.DAL.Entities
 
         [ForeignKey("Faculty")]
         public int FacultyId { get; set; }
-
+        public string Description { get; set; }
         public string Photo { get; set; }
 
     }
