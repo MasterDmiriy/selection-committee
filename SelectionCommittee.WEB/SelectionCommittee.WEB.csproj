@@ -195,6 +195,7 @@
     <Compile Include="Models\DisplayFullFaculty.cs" />
     <Compile Include="Models\DisplayHome.cs" />
     <Compile Include="Models\DisplaySpecialty.cs" />
+    <Compile Include="Models\DisplayStatementSubjects.cs" />
     <Compile Include="Models\EditFaculty.cs" />
     <Compile Include="Models\EditSpecialty.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Views\SelectionCommittee\DropDownFaculties.cshtml" />
     <Content Include="Views\SelectionCommittee\Faculty.cshtml" />
     <Content Include="Views\SelectionCommittee\Specialty.cshtml" />
+    <Content Include="Views\SelectionCommittee\Statement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

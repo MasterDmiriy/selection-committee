@@ -20,12 +20,12 @@ namespace SelectionCommittee.BLL.Services
         }
         public async Task<OperationDetails> Create(EnrolleeDTO enrollee)
         {
-            var role = await _database.RoleManager.FindByNameAsync(enrollee.Role);
-            if (role == null)
-            {
-                role = new ApplicationRole { Name = enrollee.Role };
-                await _database.RoleManager.CreateAsync(role);
-            }
+            //var role = await _database.RoleManager.FindByNameAsync(enrollee.Role);
+            //if (role == null)
+            //{
+            //    role = new ApplicationRole { Name = enrollee.Role };
+            //    await _database.RoleManager.CreateAsync(role);
+            //}
             ApplicationUser user = await  _database.UserManager.FindByEmailAsync(enrollee.Email);
            if (user == null)
            {

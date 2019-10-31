@@ -73,6 +73,17 @@ namespace SelectionCommittee.WEB.Controllers
             return View(displaySpecialty);
         }
 
+        public ActionResult Statement(int specialId, int facultyId)
+        {
+            DisplayStatementSubjects statementSubjects = new DisplayStatementSubjects
+            {
+                SpecialtyId = specialId,
+                SubjecstEIE = _subject.GetSubjectsEIEByFacyltyId(facultyId),
+                SubjectsCertificate = _subject.GetCertificates()
+            };
+            return View();
+        }
+
 
     }
 }

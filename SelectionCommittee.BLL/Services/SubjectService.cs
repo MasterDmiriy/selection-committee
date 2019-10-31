@@ -40,6 +40,19 @@ namespace SelectionCommittee.BLL.Services
             return Subjects;
         }
 
+        public IEnumerable<SubjectDTO> GetSubjectsEIEByFacyltyId(int facultyId)
+        {
+            IEnumerable<SubjectDTO> Subjects = new List<SubjectDTO>();
+            var facultySubject = _database.FacultySubjectRepository.GetAllByFacultyId(facultyId);
+            Subjects = _database.SubjectRepository.GetSubjectsEIE().Select(subject => new SubjectDTO()
+            {
+                Id = subject.Id,
+                Name = subject.Name,
+                TypeSubjectId = subject.TypeSubjectId
+            }).Where(subject => facultySubject.Any(fucSub => fucSub.SubjectId == subject.Id));
+            return Subjects;
+        }
+
         public IEnumerable<string> GetSubjectsNamesEIE(IEnumerable<FacultySubjectDTO> facultySubjects)
         {
             List<string> subjects = new List<string>();

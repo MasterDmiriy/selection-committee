@@ -1,4 +1,5 @@
-﻿@model SelectionCommittee.WEB.Models.RegisterModel
+﻿@using System.Web.UI.WebControls
+@model SelectionCommittee.WEB.Models.RegisterModel
 
 @{
     ViewBag.Title = "Register";
@@ -32,18 +33,18 @@
             <div class="form-group col-md-6">
                 <label for="City">City</label>
                 <select id="City" name="CityId" class="form-control">
-                    <option value="" disabled selected>Выберите город</option>
+                    <option value="0" disabled selected>Выберите город</option>
                     @foreach (var city in Model.Cities)
                     {
                         <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
                     }
                 </select>
-                @Html.ValidationMessageFor(m => m.CityId)
+                @Html.ValidationMessage("CityId")
             </div>
             <div class="form-group col-md-6">
                 <label for="Region">Region</label>
                 <select id="Region" name="RegionId" class="form-control">
-                    <option value="" disabled selected>Выберите область</option>
+                    <option value="0" disabled selected>Выберите область</option>
                     @foreach (var region in Model.Regions)
                     {
                         <option value=@region.Id>@region.Name</option>
@@ -56,7 +57,7 @@
         <div class="form-group">
             <label for="EducationalInstitution">EducationalInstitution</label>
             <select id="EducationalInstitution" name="EducationalInstitutionId" class="form-control">
-                <option value="" disabled selected>Выберите учебное заведение</option>
+                <option value="0" disabled selected>Выберите учебное заведение</option>
                 @foreach (var educationals in Model.EducationalInstitutions)
                 {
                     <optgroup label="@educationals.Key">
@@ -108,6 +109,6 @@
                     $('#City option:selected').each(function () {
                         this.selected = false;
                     });
-                    $("#City [value='']").prop("selected", true);
+                    $("#City [value='0']").prop("selected", true);
                 });
         </script>

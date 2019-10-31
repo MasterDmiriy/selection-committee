@@ -65,10 +65,9 @@ namespace SelectionCommittee.WEB.Controllers
             return View(model);
         }
 
-        private RegisterModel necessaryModel;
+        private RegisterModel necessaryModel = new RegisterModel();
         public ActionResult Register()
         {
-            necessaryModel = new RegisterModel();
             necessaryModel.Cities = _creator.CreateCityService().GetCities();
             necessaryModel.Regions = _creator.CreateRegionService().GetRegions();
             necessaryModel.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
