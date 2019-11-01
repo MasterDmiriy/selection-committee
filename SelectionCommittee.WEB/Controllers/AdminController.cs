@@ -175,7 +175,7 @@ namespace SelectionCommittee.WEB.Controllers
                 _specialty.Create(specialty);
             }
 
-            return View(new CreateSpecialty {FacultyId = createSpecialty.FacultyId});
+            return RedirectToAction("CreateSpecialty", new {facultyId = createSpecialty.FacultyId});
         }
 
         [HttpGet]

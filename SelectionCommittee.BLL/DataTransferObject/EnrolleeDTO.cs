@@ -1,4 +1,6 @@
-﻿namespace SelectionCommittee.BLL.DataTransferObject
+﻿using System.Collections.Generic;
+
+namespace SelectionCommittee.BLL.DataTransferObject
 {
     public class EnrolleeDTO
     {
@@ -17,6 +19,13 @@
         public int RegionId { get; set; }
 
         public int EducationalInstitutionId { get; set; }
+
+        public IEnumerable<MarkSubjectDTO> MarkSubjectsDTO { get; set; }
+
+        public EnrolleeDTO()
+        {
+            MarkSubjectsDTO = new List<MarkSubjectDTO>();
+        }
 
     }
 }

@@ -17,6 +17,7 @@ namespace SelectionCommittee.BLL.Services
             _database = db;
         }
 
+
         public void CreateRange(IEnumerable<MarkSubjectDTO> markSubjectsDTO)
         {
             List<MarkSubject> markSubjects = new List<MarkSubject>();

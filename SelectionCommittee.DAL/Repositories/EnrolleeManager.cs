@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using SelectionCommittee.DAL.Entities;
 using SelectionCommittee.DAL.EntityFramework;
 using SelectionCommittee.DAL.Interfaces;
@@ -19,9 +20,9 @@ namespace SelectionCommittee.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public Enrollee Get(int id)
+        public Enrollee Get(string id)
         {
-            return _context.Enrollees.Find(id);
+            return _context.Enrollees.Include(enrollee => enrollee.MarkSubjects).FirstOrDefault(enrollee => enrollee.Id == id);
         }
 
         public void Update(Enrollee enrollee)

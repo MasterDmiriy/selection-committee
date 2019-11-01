@@ -33,6 +33,12 @@ namespace SelectionCommittee.WEB.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Home", "SelectionCommittee");
+        }
+
         public ActionResult Login()
         {
             return View();

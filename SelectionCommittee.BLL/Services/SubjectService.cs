@@ -40,16 +40,29 @@ namespace SelectionCommittee.BLL.Services
             return Subjects;
         }
 
-        public IEnumerable<SubjectDTO> GetSubjectsEIEByFacyltyId(int facultyId)
+        public IDictionary<int, IList<SubjectDTO>> GetSubjectsEIEByFacyltyId(int facultyId)
         {
-            IEnumerable<SubjectDTO> Subjects = new List<SubjectDTO>();
+            IDictionary<int, IList<SubjectDTO>> Subjects = new Dictionary<int, IList<SubjectDTO>>();
             var facultySubject = _database.FacultySubjectRepository.GetAllByFacultyId(facultyId);
-            Subjects = _database.SubjectRepository.GetSubjectsEIE().Select(subject => new SubjectDTO()
+            var subjects = _database.SubjectRepository.GetSubjectsEIE().Select(subject => new SubjectDTO()
             {
                 Id = subject.Id,
                 Name = subject.Name,
                 TypeSubjectId = subject.TypeSubjectId
-            }).Where(subject => facultySubject.Any(fucSub => fucSub.SubjectId == subject.Id));
+            }).Where(subject => facultySubject.Any(fucSub => fucSub.SubjectId == subject.Id))
+                .Join(facultySubject, 
+                    s => s.Id, 
+                    f => f.SubjectId, 
+                    (s, f) =>
+                new {Position = f.PositionSubject, Subjects = s})
+                .GroupBy(obj=>obj.Position)
+                .OrderBy(obj=>obj.Key);
+            foreach (var subjectKey in subjects)
+            {
+                var subjectsValue = subjectKey.Select(sub => sub.Subjects);
+                Subjects.Add(subjectKey.Key,subjectsValue.ToList());
+            }
+
             return Subjects;
         }
 

@@ -14,5 +14,5 @@
     </ul>*@
 <p>@Model.Description</p>
 
-@Html.ActionLink("Подать заявление", "", new {specialtyId = Model.Id})
+@Html.ActionLink("Подать заявление", "Statement", new {specialtyId = Model.Id, facultyId = Model.FacultyId})
 

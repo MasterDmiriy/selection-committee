@@ -9,5 +9,8 @@ namespace SelectionCommittee.BLL.Interfaces
     {
         void Create(StatementDTO statementDTO);
         IEnumerable<EnrolleeDTO> GetEnrolleeBySpecialtyId(int specialtyDTOId);
+
+        IEnumerable<int> GetFreePrioritiesByEnrollee(string enrolleeId);
+
     }
 }
