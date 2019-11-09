@@ -198,6 +198,7 @@
     <Compile Include="Models\DisplayStatementSubjects.cs" />
     <Compile Include="Models\EditFaculty.cs" />
     <Compile Include="Models\EditSpecialty.cs" />
+    <Compile Include="Models\InfoAboutUser.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,6 +234,7 @@
     <Content Include="Views\SelectionCommittee\Faculty.cshtml" />
     <Content Include="Views\SelectionCommittee\Specialty.cshtml" />
     <Content Include="Views\SelectionCommittee\Statement.cshtml" />
+    <Content Include="Views\SelectionCommittee\PersonalArea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

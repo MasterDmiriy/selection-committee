@@ -71,13 +71,15 @@ namespace SelectionCommittee.WEB.Controllers
             return View(model);
         }
 
-        private RegisterModel necessaryModel = new RegisterModel();
         public ActionResult Register()
         {
-            necessaryModel.Cities = _creator.CreateCityService().GetCities();
-            necessaryModel.Regions = _creator.CreateRegionService().GetRegions();
-            necessaryModel.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
-            return View(necessaryModel);
+            RegisterModel registerModel = new RegisterModel()
+            {
+                Cities = _creator.CreateCityService().GetCities(),
+                Regions = _creator.CreateRegionService().GetRegions(),
+                EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions()
+            };
+            return View(registerModel);
         }
 
         [HttpPost]
@@ -106,9 +108,9 @@ namespace SelectionCommittee.WEB.Controllers
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
 
-            model.Cities = necessaryModel.Cities;
-            model.Regions = necessaryModel.Regions;
-            model.EducationalInstitutions = necessaryModel.EducationalInstitutions;
+            model.Cities = _creator.CreateCityService().GetCities();
+            model.Regions = _creator.CreateRegionService().GetRegions();
+            model.EducationalInstitutions = _creator.CreateEducationalInstitutionService().GetEducationalInstitutions();
             return View(model);
         }
     }

@@ -79,19 +79,17 @@ namespace SelectionCommittee.BLL.Services
                Mark = mark.Mark
            }).ToList();
 
-           var resultMark = (from mark in markSubjects
-               where enrolleeMarkEIE
-                         .Count(obj => obj.SubjectId == mark.SubjectId) == 0
-               select mark).ToList();
+          
 
            if (enrollee.MarkSubjects.Count == 0)
                enrollee.MarkSubjects = markSubjects;
            else
            {
-               foreach (var markSubject in resultMark)
-               {
-                   enrollee.MarkSubjects.Add(markSubject);
-               }
+               (from mark in markSubjects
+                       where enrolleeMarkEIE
+                                 .Count(obj => obj.SubjectId == mark.SubjectId) == 0
+                       select mark).ToList()
+                   .ForEach(markSubject => enrollee.MarkSubjects.Add(markSubject));
            }
 
            _database.EnrolleeManager.Update(enrollee);
@@ -123,6 +121,45 @@ namespace SelectionCommittee.BLL.Services
                 Mark = mark.Mark,
                 EnrolleeId = mark.EnrolleeId
             }).Where(mark=>mark.Mark>=100);
+        }
+
+        public EnrolleeDTO Get(string id)
+        {
+            var enrollee = _database.EnrolleeManager.Get(id);
+            return new EnrolleeDTO()
+            {
+                Name = enrollee.Name,
+                Surname = enrollee.Surname,
+                Patronymic = enrollee.Patronymic,
+                Email = enrollee.ApplicationUser.Email,
+                City = enrollee.City.Name,
+                Region = enrollee.Region.Name,
+                EducationalInstitution = enrollee.EducationalInstitution.Name
+            };
+        }
+
+        public IDictionary<string, int> GetMarkSubjectCertificate(string id)
+        {
+            var MarkSubjects = new Dictionary<string, int>();
+            var result = _database.EnrolleeManager.Get(id).MarkSubjects.Where(mark => mark.Mark < 100);
+            foreach (var markSubject in result)
+            {
+                MarkSubjects.Add(markSubject.Subject.Name, markSubject.Mark);
+            }
+
+            return MarkSubjects;
+        }
+
+        public IDictionary<string, int> GetMarkSubjectEIE(string id)
+        {
+            var MarkSubjects = new Dictionary<string, int>();
+            var result = _database.EnrolleeManager.Get(id).MarkSubjects.Where(mark => mark.Mark >= 100);
+            foreach (var markSubject in result)
+            {
+                MarkSubjects.Add(markSubject.Subject.Name, markSubject.Mark);
+            }
+
+            return MarkSubjects;
         }
     }
 }

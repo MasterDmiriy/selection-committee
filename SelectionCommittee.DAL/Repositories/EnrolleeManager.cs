@@ -22,7 +22,13 @@ namespace SelectionCommittee.DAL.Repositories
 
         public Enrollee Get(string id)
         {
-            return _context.Enrollees.Include(enrollee => enrollee.MarkSubjects).FirstOrDefault(enrollee => enrollee.Id == id);
+            return _context.Enrollees
+                .Include(enrollee => enrollee.MarkSubjects.Select(mark=>mark.Subject))
+                .Include(enrollee=> enrollee.City)
+                .Include(enrollee=> enrollee.Region)
+                .Include(enrollee=> enrollee.EducationalInstitution)
+                .Include(enrollee=> enrollee.ApplicationUser)
+                .FirstOrDefault(enrollee => enrollee.Id == id);
         }
 
         public void Update(Enrollee enrollee)

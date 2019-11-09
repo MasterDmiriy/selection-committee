@@ -13,8 +13,9 @@ namespace SelectionCommittee.WEB.Models
         public int Priority { get; set; }
         public IList<MarkSubjectDTO> MarkSubjects { get; set; }
         public IList<SubjectDTO> SubjectsCertificate { get; set; }
+        //Хранит позицию и перечень предметов
         public IDictionary<int,IList<SubjectDTO>> SubjectsEIE { get; set; }
         public List<int> Priorities { get; set; }
-        public bool Flag { get; set; }
+        public bool HasEIE { get; set; }
     }
 }

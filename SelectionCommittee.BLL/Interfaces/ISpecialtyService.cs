@@ -20,5 +20,7 @@ namespace SelectionCommittee.BLL.Interfaces
         void Update(SpecialtyDTO specialtyDTO);
 
         void Create(SpecialtyDTO specialtyDTO);
+
+        bool IsAvailable(string enrolleeId, int specialtyId);
     }
 }

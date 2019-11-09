@@ -5,110 +5,125 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LogInSignUpLayout.cshtml";
 }
-<div class="container w-50">
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {autocomplete = "off"}))
-    {
-        @Html.AntiForgeryToken()
-        <h1 class="text-center">Register</h1>
-        <hr>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m=>m.Surname,"Фамилия")
-                @Html.EditorFor(m=>m.Surname, new {htmlAttributes = new { @class="form-control"}})
-                @Html.ValidationMessageFor(m=>m.Surname)
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m => m.Name, "Имя")
-                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(m => m.Patronymic, "Отчество")
-                @Html.EditorFor(m => m.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Patronymic)
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="City">City</label>
-                <select id="City" name="CityId" class="form-control">
-                    <option value="0" disabled selected>Выберите город</option>
-                    @foreach (var city in Model.Cities)
-                    {
-                        <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
-                    }
-                </select>
-                @Html.ValidationMessage("CityId")
-            </div>
-            <div class="form-group col-md-6">
-                <label for="Region">Region</label>
-                <select id="Region" name="RegionId" class="form-control">
-                    <option value="0" disabled selected>Выберите область</option>
-                    @foreach (var region in Model.Regions)
-                    {
-                        <option value=@region.Id>@region.Name</option>
-
-                    }
-                </select>
-                @Html.ValidationMessageFor(m => m.RegionId)
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="EducationalInstitution">EducationalInstitution</label>
-            <select id="EducationalInstitution" name="EducationalInstitutionId" class="form-control">
-                <option value="0" disabled selected>Выберите учебное заведение</option>
-                @foreach (var educationals in Model.EducationalInstitutions)
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-11 col-sm-10+ mx-auto">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { autocomplete = "off" }))
                 {
-                    <optgroup label="@educationals.Key">
-                        @foreach (var educational in educationals.Value)
-                        {
-                            <option value=@educational.Id>@educational.Name</option>
-                        }
-                    </optgroup>
+                    @Html.AntiForgeryToken()
+                    <h1 class="text-center">Register</h1>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(m => m.Surname, "Фамилия")
+                            @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(m => m.Surname)
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(m => m.Name, "Имя")
+                            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(m => m.Patronymic, "Отчество")
+                            @Html.EditorFor(m => m.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(m => m.Patronymic)
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="City">City</label>
+                            <select id="City" name="CityId" class="form-control">
+                                <option value="0" disabled selected>Выберите город</option>
+                                @foreach (var city in Model.Cities)
+                                {
+                                    <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
+                                }
+                            </select>
+                            @Html.ValidationMessage("CityId")
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Region">Region</label>
+                            <select id="Region" name="RegionId" class="form-control">
+                                <option value="0" disabled selected>Выберите область</option>
+                                @foreach (var region in Model.Regions)
+                                {
+                                    <option value=@region.Id>@region.Name</option>
+
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(m => m.RegionId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="EducationalInstitution">EducationalInstitution</label>
+                        <select id="EducationalInstitution" name="EducationalInstitutionId" class="form-control">
+                            <option value="0" disabled selected>Выберите учебное заведение</option>
+                            @foreach (var educationals in Model.EducationalInstitutions)
+                            {
+                                <optgroup label="@educationals.Key">
+                                    @foreach (var educational in educationals.Value)
+                                    {
+                                        <option value=@educational.Id>@educational.Name</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(m => m.EducationalInstitutionId)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, "Email")
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(m => m.Password, "Пароль")
+                            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(m => m.ConfirmPassword, "Подтвердите пароль")
+                            @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </div>
+                    </div>
+                    <div class="form-row text-center">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                        </div>
+                    </div>
                 }
-            </select>
-            @Html.ValidationMessageFor(m => m.EducationalInstitutionId)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, "Email")
-            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.Email)
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.Password, "Пароль")
-                @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-            <div class="form-group col-md-6">
-                @Html.LabelFor(m => m.ConfirmPassword, "Подтвердите пароль")
-                @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-        </div>
-        <div class="form-row text-center">
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-            </div>
-        </div>
-    }
-</div>
+                </div>
+                </div>
+                </div>
 
-        <script>
-            $("#City")
-                .change(function () {
-                    $('#Region option:selected').each(function () {
-                        this.selected = false;
-                    });
-                    $("#Region [value=" + $(this).find('option:selected').data("regionid") + "]").prop("selected", true);
-                });
+                <script>
+                    $(window).ready(function () {
+                        var width = $("#EducationalInstitution").width();
+                            $('#EducationalInstitution option').each(function () {
+                                var length = $(this).text().length;
+                                $(this).text(length > width * 0.125
+                                    ? $(this).text().substr(0, width * 0.125 - 3) + "..."
+                                    : $(this).text());
+                                $(this).width(width);
+                            });
+                        });
+    
+                    $("#City")
+                        .change(function () {
+                            $('#Region option:selected').each(function () {
+                                this.selected = false;
+                            });
+                            $("#Region [value=" + $(this).find('option:selected').data("regionid") + "]").prop("selected", true);
+                        });
 
-            $("#Region")
-                .change(function () {
-                    $('#City option:selected').each(function () {
-                        this.selected = false;
-                    });
-                    $("#City [value='0']").prop("selected", true);
-                });
-        </script>
+                    $("#Region")
+                        .change(function () {
+                            $('#City option:selected').each(function () {
+                                this.selected = false;
+                            });
+                            $("#City [value='0']").prop("selected", true);
+                        });
+                </script>

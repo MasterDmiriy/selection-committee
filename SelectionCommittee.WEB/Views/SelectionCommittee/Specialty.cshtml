@@ -14,5 +14,20 @@
     </ul>*@
 <p>@Model.Description</p>
 
-@Html.ActionLink("Подать заявление", "Statement", new {specialtyId = Model.Id, facultyId = Model.FacultyId})
+@if (!User.Identity.IsAuthenticated)
+{
+<div class="alert alert-danger" role="alert">
+    Вы не авторизировались!
+</div>
+}
+else if (Model.isAvailable)
+{
+    @Html.ActionLink("Подать заявление", "Statement", new { specialtyId = Model.Id, facultyId = Model.FacultyId })
+}
 
+else
+{
+    <div class="alert alert-primary" role="alert">
+        Вы уже подали заявление на эту специальность.
+    </div>
+}

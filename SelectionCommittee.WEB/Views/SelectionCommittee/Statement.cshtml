@@ -4,16 +4,17 @@
     ViewBag.Title = "Statement";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int i=0, k=0;
+    bool flag;
 }
 
 
 
 @using (Html.BeginForm("Statement", "SelectionCommittee", FormMethod.Post))
 {
-    @Html.ValidationSummary(false)
+    @Html.ValidationSummary(false, "",new {@class="text-danger"})
     @Html.HiddenFor(m => m.SpecialtyId)
     @Html.HiddenFor(m => m.FacultyId)
-    @Html.HiddenFor(m=>m.Flag)
+    @Html.HiddenFor(m=>m.HasEIE)
 
     if (!Model.SubjectsCertificate.Any())
     {
@@ -52,29 +53,25 @@
             <div class="input-group col-md-4 mb-sm-4">
                 @if (key.Value.Count == 2)
                 {
-                    <select id="SubjectEIE1" name=@String.Format($"MarkSubjects[{i}].SubjectId") class="form-control">
-                        <option value=@key.Value[0].Id selected>@key.Value[0].Name</option>
-                        <option value=@key.Value[1].Id>@key.Value[1].Name</option>
+                    <select id=@String.Format($"SubjectEIE{i}") name=@String.Format($"MarkSubjects[{i}].SubjectId") class="form-control">
+                        <option value=@key.Value[0].Id data-mark=@(!Model.HasEIE ? 100 : Model.MarkSubjects[i+k].Mark) selected>@key.Value[0].Name</option>
+                        <option value=@key.Value[1].Id data-mark=@(!Model.HasEIE? 100 : Model.MarkSubjects[i+k+1].Mark) >@key.Value[1].Name</option>
                     </select>
                     k++;
                 }
                 else
                 {
-                    @Html.Hidden($"MarkSubjects[{i}].SubjectId", key.Value[0].Id)
+                    @Html.Hidden($"MarkSubjects[{i+k}].SubjectId", key.Value[0].Id)
                     <div class="input-group-prepend">
                         <span class="input-group-text">@key.Value[0].Name</span>
                     </div>
                 }
-                @Html.EditorFor(m => m.MarkSubjects[i==2 ? 3 : i].Mark, new
-                {
-                    htmlAttributes = new
-                    {
-                        required = "required",
-                        @class = "form-control",
-                        min = "100",
-                        max = "200"
-                    }
-                })
+                @*@{
+                    flag = Model.MarkSubjects[i].EnrolleeId == null;
+                }*@
+                <input type="number" id=@String.Format($"MarkEIE{i}") name=@String.Format($"MarkSubjects[{i}].Mark") required
+                       class="form-control" min="100" max="200" 
+                       value="@Model.MarkSubjects[k==2 && Model.HasEIE ? Model.MarkSubjects.Count-2 : i].Mark"/>
             </div>
             i++;
 
@@ -95,4 +92,10 @@
     </div>
 }
 
+    <script>
+        $('select').change(function () {
+            var id = this.id[this.id.length - 1];
+            $("#MarkEIE"+id).val($(this).find('option:selected').data("mark"));
+        });
+    </script>
 

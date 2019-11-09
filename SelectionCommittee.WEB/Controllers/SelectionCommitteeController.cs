@@ -77,7 +77,8 @@ namespace SelectionCommittee.WEB.Controllers
                 FacultyId = specialty.FacultyId,
                 Number = string.Format("{0:d3}", specialty.Number),
                 BudgetPlaces = specialty.BudgetPlaces,
-                TotalPlaces = specialty.TotalPlaces
+                TotalPlaces = specialty.TotalPlaces,
+                isAvailable = _specialty.IsAvailable(User.Identity.GetUserId(), specialty.Id)
             };
             return View(displaySpecialty);
         }
@@ -89,8 +90,8 @@ namespace SelectionCommittee.WEB.Controllers
             var SubjectsCertificate = _subject.GetCertificates();
             List<MarkSubjectDTO> tempEIE = _enrollee.GetMarkSubjectsEIE(User.Identity.GetUserId()).ToList();
             List<MarkSubjectDTO> temp = new List<MarkSubjectDTO>();
-            bool flag = !tempEIE.Any();
-            if (flag)
+            bool hasEIE = tempEIE.Any();
+            if (!hasEIE)
             {
                 temp = new List<MarkSubjectDTO>(Enumerable.Range(1, (SubjectsCertificate.Count()))
                     .Select(mark => new MarkSubjectDTO()));
@@ -117,10 +118,10 @@ namespace SelectionCommittee.WEB.Controllers
                 FacultyId = facultyId,
                 SubjectsEIE = SubjectsEIE,
                 MarkSubjects = temp,
-                Flag = flag,
+                HasEIE = hasEIE,
                 Priorities = _statement.GetFreePrioritiesByEnrollee(User.Identity.GetUserId()).ToList()
             };
-            statementSubjects.SubjectsCertificate = flag ? SubjectsCertificate.ToList() : new List<SubjectDTO>();
+            statementSubjects.SubjectsCertificate = !hasEIE ? SubjectsCertificate.ToList() : new List<SubjectDTO>();
             return View(statementSubjects);
         }
 
@@ -129,7 +130,7 @@ namespace SelectionCommittee.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(displayStatementSubjects.MarkSubjects.Count(mark=>mark.Mark!=0)<24&&displayStatementSubjects.Flag)
+                if(displayStatementSubjects.MarkSubjects.Count(mark=>mark.Mark!=0)<24&&!displayStatementSubjects.HasEIE)
                     ModelState.AddModelError("","Должно быть заполнено как минимум 21 поле с оценкой аттестата");
                 else
                 {
@@ -145,11 +146,31 @@ namespace SelectionCommittee.WEB.Controllers
                 }
             }
 
-            displayStatementSubjects.SubjectsCertificate = displayStatementSubjects.Flag ?  _subject.GetCertificates().ToList() : new List<SubjectDTO>(); ;
+            displayStatementSubjects.SubjectsCertificate = !displayStatementSubjects.HasEIE
+                ?  _subject.GetCertificates().ToList() 
+                : new List<SubjectDTO>(); ;
             displayStatementSubjects.SubjectsEIE = _subject.GetSubjectsEIEByFacyltyId(displayStatementSubjects.FacultyId);
             displayStatementSubjects.Priorities =
                 _statement.GetFreePrioritiesByEnrollee(User.Identity.GetUserId()).ToList();
             return View(displayStatementSubjects);
+        }
+
+        public ActionResult PersonalArea()
+        {
+            var enrolleeDTO = _enrollee.Get(User.Identity.GetUserId());
+            InfoAboutUser infoAboutUser = new InfoAboutUser()
+            {
+                Name = enrolleeDTO.Name,
+                Surname = enrolleeDTO.Surname,
+                Patronymic = enrolleeDTO.Patronymic,
+                Email = enrolleeDTO.Email,
+                City = enrolleeDTO.City,
+                Region = enrolleeDTO.Region,
+                EducationalInstitution = enrolleeDTO.EducationalInstitution
+            };
+            infoAboutUser.MarkCertificate = _enrollee.GetMarkSubjectCertificate(User.Identity.GetUserId());
+            infoAboutUser.MarkCertificate = _enrollee.GetMarkSubjectEIE(User.Identity.GetUserId());
+            return View(infoAboutUser);
         }
     }
 }

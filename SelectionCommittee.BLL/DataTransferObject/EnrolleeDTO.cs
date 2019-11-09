@@ -14,10 +14,13 @@ namespace SelectionCommittee.BLL.DataTransferObject
         public string Photo { get; set; }
         public string Role { get; set; }
 
+        public string City { get; set; }
         public int? CityId { get; set; }
 
+        public string Region { get; set; }
         public int RegionId { get; set; }
 
+        public string EducationalInstitution { get; set; }
         public int EducationalInstitutionId { get; set; }
 
         public IEnumerable<MarkSubjectDTO> MarkSubjectsDTO { get; set; }

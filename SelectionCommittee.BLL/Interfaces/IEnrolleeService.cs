@@ -12,9 +12,14 @@ namespace SelectionCommittee.BLL.Interfaces
     {
         Task<OperationDetails> Create(EnrolleeDTO enrollee); 
         OperationDetails Update(EnrolleeDTO enrollee);
-        //EnrolleeDTO Get(int id);
+
+        EnrolleeDTO Get(string id);
 
         void UpdateMarkSubjects(string id, IEnumerable<MarkSubjectDTO> markSubjectsDTO);
+
+        IDictionary<string, int> GetMarkSubjectCertificate(string id);
+
+        IDictionary<string, int> GetMarkSubjectEIE(string id);
 
         IEnumerable<MarkSubjectDTO> GetMarkSubjectsEIE(string id);
 

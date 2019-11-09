@@ -98,6 +98,13 @@ namespace SelectionCommittee.BLL.Services
             };
         }
 
+
+        public bool IsAvailable(string enrolleeId, int specialtyId)
+        {
+            return !_database.StatementRepository.GetAll().Any(statement =>
+            statement.SpecialtyId == specialtyId && statement.EnrolleeId == enrolleeId);
+        }
+
         public void Update(SpecialtyDTO specialtyDTO)
         {
             var specialty = new Specialty
