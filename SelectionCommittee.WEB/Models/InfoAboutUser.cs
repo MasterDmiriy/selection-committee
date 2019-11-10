@@ -8,9 +8,7 @@ namespace SelectionCommittee.WEB.Models
     {
         public string Email { get; set; }
 
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
+        public string FullName { get; set; }
 
         [Display(Name = "Город")]
         public string City { get; set; }

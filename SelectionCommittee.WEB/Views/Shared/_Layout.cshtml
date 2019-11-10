@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <nav class="navbar navbar-expand-md navbar-dark bg-info">
             @Html.ActionLink("Приемная комиссия", "Home", null, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,10 +25,10 @@
                         <a class="nav-link" href="#">Контакты</a>
                     </li>
                 </ul>
-                <div class="d-flex my-2 my-lg-0">
+                <div class="d-flex flex-md-row flex-column align-items-start my-2 my-md-0">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.ActionLink("Личный кабинет", "PersonalArea");
+                        @Html.ActionLink("Личный кабинет", "PersonalArea", null, new {@class="btn btn-outline-light mb-md-0 mb-2 mr-sm-2", role="button"});
                         <a role="button" href="/Account/Logout" class="btn btn-outline-light" aria-pressed="true">Выйти</a>
                     }
                     else

@@ -17,7 +17,12 @@ namespace SelectionCommittee.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        IServiceCreator _creator = new ServiceCreator("DefaultConnection");
+        private IServiceCreator _creator;
+
+        public AccountController(IServiceCreator creator)
+        {
+            _creator = creator;
+        }
         private IEnrolleeService EnrolleeService
         {
             get

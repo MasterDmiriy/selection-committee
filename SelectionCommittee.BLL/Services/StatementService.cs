@@ -59,5 +59,24 @@ namespace SelectionCommittee.BLL.Services
            return (new List<int>{1,2,3,4}).Except(_database.StatementRepository.GetAll().Where(statement => statement.EnrolleeId == enrolleeId)
                 .Select(state => state.Priority));
         }
+
+        public  void FormStatement()
+        {
+            var statement = _database.StatementRepository.GetAll().GroupBy(state => state.SpecialtyId);
+            foreach (var specialty in statement)
+            {
+                foreach (var statementSpec in specialty)
+                {
+                    var enrollees = GetEnrolleeBySpecialtyId(statementSpec.Id);
+                    if (enrollees.Count() != 0)
+                    {
+                        foreach (var enrollee in enrollees)
+                        {
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
 }

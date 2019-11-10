@@ -13,16 +13,16 @@ namespace SelectionCommittee.WEB.Controllers
 {
     public class SelectionCommitteeController : Controller
     {
-        IServiceCreator _creator = new ServiceCreator("DefaultConnection");
-
+        private IServiceCreator _creator;
         private IFacultyService _faculty;
         private ISpecialtyService _specialty;
         private ISubjectService _subject;
         private IStatementService _statement;
         private IEnrolleeService _enrollee;
 
-        public SelectionCommitteeController()
+        public SelectionCommitteeController(IServiceCreator creator)
         {
+            _creator = creator;
             _faculty = _creator.CreateFacultyService();
             _specialty = _creator.CreateSpecialtyService();
             _subject = _creator.CreateSubjectService();
@@ -93,7 +93,7 @@ namespace SelectionCommittee.WEB.Controllers
             bool hasEIE = tempEIE.Any();
             if (!hasEIE)
             {
-                temp = new List<MarkSubjectDTO>(Enumerable.Range(1, (SubjectsCertificate.Count()))
+                temp = new List<MarkSubjectDTO>(Enumerable.Range(1, SubjectsCertificate.Count())
                     .Select(mark => new MarkSubjectDTO()));
                 temp.AddRange(Enumerable.Range(1, 3)
                     .Select(mark => new MarkSubjectDTO() {Mark = 100}));
@@ -141,7 +141,7 @@ namespace SelectionCommittee.WEB.Controllers
                         EnrolleeId = User.Identity.GetUserId()
                     });
                     _enrollee.UpdateMarkSubjects(User.Identity.GetUserId(),
-                        displayStatementSubjects.MarkSubjects.Where(mark => mark.Mark != 0));
+                        displayStatementSubjects.MarkSubjects);
                    return RedirectToAction("Faculty", new {id = displayStatementSubjects.FacultyId});
                 }
             }
@@ -160,16 +160,14 @@ namespace SelectionCommittee.WEB.Controllers
             var enrolleeDTO = _enrollee.Get(User.Identity.GetUserId());
             InfoAboutUser infoAboutUser = new InfoAboutUser()
             {
-                Name = enrolleeDTO.Name,
-                Surname = enrolleeDTO.Surname,
-                Patronymic = enrolleeDTO.Patronymic,
+                FullName = enrolleeDTO.Surname+" "+ enrolleeDTO.Name+" "+ enrolleeDTO.Patronymic,
                 Email = enrolleeDTO.Email,
                 City = enrolleeDTO.City,
                 Region = enrolleeDTO.Region,
                 EducationalInstitution = enrolleeDTO.EducationalInstitution
             };
             infoAboutUser.MarkCertificate = _enrollee.GetMarkSubjectCertificate(User.Identity.GetUserId());
-            infoAboutUser.MarkCertificate = _enrollee.GetMarkSubjectEIE(User.Identity.GetUserId());
+            infoAboutUser.MarkEIE = _enrollee.GetMarkSubjectEIE(User.Identity.GetUserId());
             return View(infoAboutUser);
         }
     }

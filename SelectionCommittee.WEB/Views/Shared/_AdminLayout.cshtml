@@ -9,14 +9,18 @@
     <style></style>
 </head>
 <body>
-<main>
-    <div class="container">
-        @RenderBody()
-    </div>
-</main>
-<section>
-    <a role="button" href="/Account/Logout" class="btn btn-outline-danger" aria-pressed="true">Выйти</a>
-</section>
+<div class="row">
+    <nav class="col-2 flex-column nav-pills m-3 p-lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="faculties" data-toggle="pill" href="/Admin/Faculties" role="tab" aria-controls="faculties" aria-selected="true">Факультеты</a>
+        <a class="nav-link" id="coefficientSetting" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="coefficientSetting" aria-selected="false">Настройка коэффициентов</a>
+        <a role="button" href="/Account/Logout" class="btn btn-outline-danger" aria-pressed="true">Выйти</a>
+    </nav>
+    <main class="col m-2 p-lg-3">
+        <div class="table-responsive-lg">
+            @RenderBody()
+        </div>
+    </main>
+</div>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>

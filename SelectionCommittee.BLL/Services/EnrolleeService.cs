@@ -77,9 +77,8 @@ namespace SelectionCommittee.BLL.Services
            {
                SubjectId = mark.SubjectId,
                Mark = mark.Mark
-           }).ToList();
+           }).Where(mark => mark.Mark != 0).ToList();
 
-          
 
            if (enrollee.MarkSubjects.Count == 0)
                enrollee.MarkSubjects = markSubjects;
