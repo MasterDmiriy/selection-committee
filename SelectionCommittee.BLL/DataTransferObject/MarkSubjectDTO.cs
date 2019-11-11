@@ -7,5 +7,6 @@ namespace SelectionCommittee.BLL.DataTransferObject
 
         public int Mark { get; set; }
         public string EnrolleeId { get; set; }
+
     }
 }

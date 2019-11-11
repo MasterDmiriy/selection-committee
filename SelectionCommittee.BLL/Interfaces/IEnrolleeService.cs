@@ -23,6 +23,7 @@ namespace SelectionCommittee.BLL.Interfaces
 
         IEnumerable<MarkSubjectDTO> GetMarkSubjectsEIE(string id);
 
+
         Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee);
     }
 }

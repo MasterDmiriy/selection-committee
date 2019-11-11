@@ -12,5 +12,6 @@ namespace SelectionCommittee.BLL.Interfaces
 
         IEnumerable<int> GetFreePrioritiesByEnrollee(string enrolleeId);
 
+
     }
 }
