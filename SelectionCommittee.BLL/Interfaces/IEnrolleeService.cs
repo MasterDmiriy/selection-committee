@@ -25,7 +25,7 @@ namespace SelectionCommittee.BLL.Interfaces
 
         IEnumerable<EnrolleeDTO> GetAll();
 
-        bool isRuralCoefficient(string id);
+        bool IsRuralCoefficient(string id);
 
         Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee);
     }

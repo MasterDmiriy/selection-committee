@@ -83,14 +83,21 @@ namespace SelectionCommittee.BLL.Services
                 {
 
                     var enrollee = new EnrolleeService(_database).Get(statementSpec.EnrolleeId);
-                    
+
+                    var certificate = TransformCertificate(enrollee.MarkSubjectsDTO);
+                    var markSubjects = GetMarkSubjectEIE(specialtyKey.SpecialtyState.Id, enrollee.Id).ToList();
+                    var ruralCoefficient = enrolleeService.IsRuralCoefficient(enrollee.Id) ? 1.02 : 1;
+                    var priorityCoefficient = statementSpec.Priority > 2 ? 1 : 1.02;
+
                     report.Add(new Report
                     {
                         FullName = enrollee.Surname + " " + enrollee.Name + " " + enrollee.Patronymic,
-                        Certificate = TransformCertificate(enrollee.MarkSubjectsDTO),
-                        MarkSubjects = GetMarkSubjectEIE(specialtyKey.SpecialtyState.Id, enrollee.Id).ToList(),
-                        RuralCoefficient = enrolleeService.isRuralCoefficient(enrollee.Id) ? 1.02 : 1,
-                        PriorityCoefficient = statementSpec.Priority > 2 ? 1 : 1.02
+                        Certificate = certificate,
+                        MarkSubjects = markSubjects,
+                        PassMark = EnrolleeCalculate(markSubjects[0].Mark, markSubjects[1].Mark, 
+                        markSubjects[2].Mark, certificate, ruralCoefficient,priorityCoefficient),
+                        RuralCoefficient = ruralCoefficient,
+                        PriorityCoefficient = priorityCoefficient
                     });
 
                 }
@@ -107,9 +114,8 @@ namespace SelectionCommittee.BLL.Services
 
                 sheet.Name = "Список абитуриентов";
 
-                sheet.Range[sheet.Cells[2, 3], sheet.Cells[2, 3]].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(153, 238, 153));
+                sheet.Range[sheet.Cells[2, 3], sheet.Cells[2, 3]].Interior.Color = Color.FromArgb(153, 238, 153);
                 sheet.Cells[2, 3] = "Бюджетное место";
-
                 sheet.Cells[3, 2] = "№";
                 sheet.Cells[3, 3] = "ФИО";
                 sheet.Cells[3, 4] = "Аттестат";
@@ -118,7 +124,7 @@ namespace SelectionCommittee.BLL.Services
                 sheet.Cells[3, 7] = "Математика или биология";
                 sheet.Cells[3, 8] = "Балл";
 
-                report = report.OrderByDescending(obj => obj.Certificate).ToList();
+                report = report.OrderByDescending(obj => obj.PassMark).ToList();
                 int i, j;
                 for (i = 0, j = 4; i < specialty.TotalPlaces && i < report.Count; i++, j++)
                 {
@@ -129,9 +135,7 @@ namespace SelectionCommittee.BLL.Services
                     sheet.Cells[j, 5] = report[i].MarkSubjects[0].Mark;
                     sheet.Cells[j, 6] = report[i].MarkSubjects[1].Mark;
                     sheet.Cells[j, 7] = report[i].MarkSubjects[2].Mark;
-                    sheet.Cells[j, 8] = EnrolleeCalculate(report[i].MarkSubjects[0].Mark,
-                        report[i].MarkSubjects[1].Mark, report[i].MarkSubjects[2].Mark,
-                        report[i].Certificate, report[i].RuralCoefficient, report[i].PriorityCoefficient);
+                    sheet.Cells[j, 8] = report[i].PassMark;
                 }
 
                 //Захватываем диапазон ячеек
@@ -147,8 +151,8 @@ namespace SelectionCommittee.BLL.Services
                 border.LineStyle = XlLineStyle.xlContinuous;
 
                 var colorRange = sheet.Range[sheet.Cells[4, 2], sheet.Cells[9, 8]];
-                colorRange.Interior.Color = ColorTranslator.ToOle(Color.FromArgb(153, 238, 153));
-
+                colorRange.Interior.Color = Color.FromArgb(153, 238, 153);
+                
 
                 sheet.Range[sheet.Cells[3, 3], sheet.Cells[9, 3]].ColumnWidth = 20;
                 sheet.Range[sheet.Cells[3, 5], sheet.Cells[9, 5]].ColumnWidth = 16;
@@ -190,20 +194,23 @@ namespace SelectionCommittee.BLL.Services
             var subject = subjectService.GetSubjectsEIEByFacyltyId(_database.SpecialtyRepository
                 .Get(specialtyDTOId).FacultyId);
             List<MarkSubjectDTO> markSubjectsDTO = new List<MarkSubjectDTO>(),
-                temp = new List<MarkSubjectDTO>();
+                temp;
             var enrollee = _database.EnrolleeManager.Get(enrolleeId);
             foreach (var mark in subject)
             {
+                temp = new List<MarkSubjectDTO>();
                 foreach (var subjectDTO in mark.Value)
                 {
-                    temp.Add(enrollee.MarkSubjects
+                    var result = enrollee.MarkSubjects
                         .Where(markSub => markSub.SubjectId == subjectDTO.Id && markSub.Mark >= 100)
                         .Select(markSub => new MarkSubjectDTO
                         {
                             EnrolleeId = markSub.EnrolleeId,
                             Mark = markSub.Mark,
                             SubjectId = markSub.SubjectId
-                        }).FirstOrDefault());
+                        }).FirstOrDefault();
+                    if (result != null)
+                        temp.Add(result);
                 }
 
                 markSubjectsDTO.Add(temp.OrderByDescending(markSub => markSub.Mark).FirstOrDefault());

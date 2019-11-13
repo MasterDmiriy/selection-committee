@@ -35,13 +35,16 @@ namespace SelectionCommittee.BLL.Services
                if(result.Errors.Any())
                    return new OperationDetails(false, result.Errors.FirstOrDefault(),"");
                await _database.UserManager.AddToRoleAsync(user.Id, enrollee.Role);
-               Enrollee enrol = new Enrollee
-               {
-                   Id = user.Id,
-                   Name = enrollee.Name, Surname = enrollee.Surname, Patronymic = enrollee.Patronymic, 
-                   CityId = enrollee.CityId == 0 ? null : enrollee.CityId, RegionId = enrollee.RegionId,
-                   EducationalInstitutionId = enrollee.EducationalInstitutionId
-               };
+                Enrollee enrol = new Enrollee
+                {
+                    Id = user.Id,
+                    Name = enrollee.Name,
+                    Surname = enrollee.Surname,
+                    Patronymic = enrollee.Patronymic,
+                    RegionId = enrollee.RegionId,
+                    CityId = enrollee.CityId == 0 ? 33 : enrollee.CityId,
+                    EducationalInstitutionId = enrollee.EducationalInstitutionId
+                };
                _database.EnrolleeManager.Create(enrol);
                 await _database.SaveAsync();
                return new OperationDetails(true,"Регистрация успешно пройдена", "");
@@ -95,7 +98,7 @@ namespace SelectionCommittee.BLL.Services
             _database.Save();
         }
 
-        public bool isRuralCoefficient(string id)
+        public bool IsRuralCoefficient(string id)
         {
             var enrollee = _database.EnrolleeManager.Get(id);
             //if the enrollee lives in the village and graduated from an educational institution in the village

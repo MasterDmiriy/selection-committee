@@ -7,7 +7,9 @@ namespace SelectionCommittee.BLL.Infrastructure
     {
         public string FullName { get; set; }
         public int Certificate { get; set; }
+
         public IList<MarkSubjectDTO> MarkSubjects { get; set; }
+        public double PassMark { get; set; }
         public double RuralCoefficient { get; set; }
         public double PriorityCoefficient { get; set; }
         

@@ -531,6 +531,12 @@ namespace SelectionCommittee.DAL.EntityFramework
                     Id = 32,
                     RegionId = 10,
                     Name = "Кропивницкий"
+                },
+                new City
+                {
+                    Id = 33,
+                    RegionId = 1,
+                    Name = null
                 }
             };
             context.Cities.AddRange(cities);

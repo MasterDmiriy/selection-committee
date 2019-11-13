@@ -16,7 +16,7 @@ namespace SelectionCommittee.DAL.Repositories
 
         public IEnumerable<City> GetAll()
         {
-            return _context.Cities.ToList();
+            return _context.Cities.Where(city => city.Name != null).ToList();
         }
     }
 }

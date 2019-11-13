@@ -23,7 +23,11 @@ namespace SelectionCommittee.DAL.Repositories
 
         public Enrollee Get(string id)
         {
-            var r = _context.Enrollees;
+            var r = _context.Enrollees
+                .Include(enrollee => enrollee.MarkSubjects.Select(mark => mark.Subject))
+                .Include(enrollee => enrollee.Region)
+                .Include(enrollee => enrollee.EducationalInstitution)
+                .Include(enrollee => enrollee.ApplicationUser);
             return r
                 .FirstOrDefault(enrollee => enrollee.Id == id);
 
