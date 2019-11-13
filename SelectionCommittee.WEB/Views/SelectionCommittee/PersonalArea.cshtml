@@ -70,6 +70,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if(Model.MarkCertificate.Count()==0)
+                    {
+                        <tr>
+                            <td colspan="2">Оценки аттестата еще не заполнены</td>
+                        </tr>
+                    }
                     @foreach (var subjectMark in Model.MarkCertificate)
                     {
                         <tr>
@@ -89,6 +95,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (Model.MarkEIE.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="2">Нет еще ни одной оценки ВНО</td>
+                            </tr>
+                        }
                         @foreach (var subjectMark in Model.MarkEIE)
                         {
                             <tr>

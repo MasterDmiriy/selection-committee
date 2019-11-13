@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using SelectionCommittee.DAL.Entities;
 using SelectionCommittee.DAL.EntityFramework;
@@ -20,7 +21,10 @@ namespace SelectionCommittee.DAL.Repositories
 
         public IEnumerable<Statement> GetAll()
         {
-            return _context.Statements.ToList();
+            return _context.Statements
+                .Include(statement => statement.Enrollee)
+                .Include(statement => statement.Specialty).ToList();
+
         }
     }
 }

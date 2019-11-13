@@ -33,6 +33,30 @@ namespace SelectionCommittee.DAL.EntityFramework
                 userManager.AddToRole(admin.Id, role1.Name);
             }
 
+            IEnumerable<Сoefficient> coefficients = new List<Сoefficient>
+            {
+                new Сoefficient
+                {
+                    Id = "K1",
+                    Value = 0.2
+                },
+                new Сoefficient
+                {
+                    Id = "K2",
+                    Value = 0.4
+                },
+                new Сoefficient
+                {
+                    Id = "K3",
+                    Value = 0.3
+                },
+                new Сoefficient
+                {
+                    Id = "K4",
+                    Value = 0.1
+                }
+            };
+            context.Coefficients.AddRange(coefficients);
 
             IEnumerable<TypeSubject> typeSubjects = new List<TypeSubject>
             {

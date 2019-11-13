@@ -9,19 +9,57 @@
     <link href="~/Content/Faculty.css" rel="stylesheet" type="text/css" />
 }
 
-<h1 class="text-uppercase">Факультет @Model.Name</h1>
-<p>Для поступления на любую специальность данного факультета нужно иметь баллы по таким предметам ВНО</p>
-<ul>
-    @foreach (var str in Model.Subjects)
+<div class="mx-1 px-xl-5 mx-lg-5">
+    <h1 class="text-uppercase">Факультет @Model.Name</h1>
+    <p>Для поступления на любую специальность данного факультета нужно иметь баллы по таким предметам ВНО</p>
+    <ul>
+        @foreach (var str in Model.Subjects)
+        {
+            <li>@str</li>
+        }
+    </ul>
+    <p>@Model.Description</p>
+    <h2>Специальности</h2>
+
+    @*@for (int i = 0; i < Model.SpecialtiesDTO.Count();)
     {
-        <li>@str</li>
+        <div class="row my-2">
+            @for (int j = 0; j < 4 && i < Model.SpecialtiesDTO.Count(); j++, i++)
+            {
+                <div class="card bg-dark text-white mx-2">
+                    <img src="@Model.SpecialtiesDTO[i].Photo" class="card-img" alt="@Model.SpecialtiesDTO[i].Name">
+                    <div class="card-img-overlay pt-lg-5">
+                        <a href="/SelectionCommittee/Specialty/@Model.SpecialtiesDTO[i].Id" class="stretched-link text-center text-decoration-none">
+                            <h5 class="bg-dark rounded-pill mt-lg-5 p-3 text-white card-title" style="opacity: .8">@Model.SpecialtiesDTO[i].Name</h5>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }*@
+<div class="row">
+    @for (int i = 0; i < Model.SpecialtiesDTO.Count(); i++)
+    {
+        <div class="card text-white col-md-6 col-lg-3 border-0">
+            <img src="@Model.SpecialtiesDTO[i].Photo" class="card-img" alt="@Model.SpecialtiesDTO[i].Name" style="height: 240px">
+            <div class="card-img-overlay pt-lg-5">
+                <a href="/SelectionCommittee/Specialty/@Model.SpecialtiesDTO[i].Id" class="stretched-link text-center text-decoration-none">
+                    <h5 class="bg-dark rounded-pill mt-lg-5 p-3 text-white card-title" style="opacity: .8">@Model.SpecialtiesDTO[i].Name</h5>
+                </a>
+            </div>
+        </div>
     }
-</ul>
-<p>@Model.Description</p>
-<h2>Специальности</h2>
+    @for (int i = 0; i < Model.SpecialtiesDTO.Count(); i++)
+    {
+        <div class="card text-white col-md-6 col-lg-3 border-0">
+            <img src="@Model.SpecialtiesDTO[i].Photo" class="card-img" alt="@Model.SpecialtiesDTO[i].Name" style="height: 240px">
+            <div class="card-img-overlay pt-lg-5">
+                <a href="/SelectionCommittee/Specialty/@Model.SpecialtiesDTO[i].Id" class="stretched-link text-center text-decoration-none">
+                    <h5 class="bg-dark rounded-pill mt-lg-5 p-3 text-white card-title" style="opacity: .8">@Model.SpecialtiesDTO[i].Name</h5>
+                </a>
+            </div>
+        </div>
+    }
 
-@foreach (var specialty in Model.SpecialtiesDTO)
-{
-    @Html.ActionLink(specialty.Name, "Specialty", new {id = specialty.Id})
-}
-
+</div>
+</div>

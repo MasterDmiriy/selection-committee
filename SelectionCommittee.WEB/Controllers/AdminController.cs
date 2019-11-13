@@ -218,8 +218,6 @@ namespace SelectionCommittee.WEB.Controllers
                         System.IO.File.Delete(Server.MapPath(filePath));
                     image.SaveAs(Server.MapPath(filePath));
                     specialty.Photo = filePath;
-                    
-
                 }
                 else specialty.Photo = editSpecialty.Photo;
 
@@ -238,6 +236,23 @@ namespace SelectionCommittee.WEB.Controllers
                 _specialty.Delete(id);
             }
             return RedirectToAction("Specialties", new { facultyId = facultyId});
+        }
+
+        public ActionResult FormStatement()
+        {
+            _creator.CreateStatementService().FormStatement(Server.MapPath("/Content/Statements/"));
+            return RedirectToAction("Enrollees");
+        }
+
+        public ActionResult Enrollees()
+        {
+            var displayEnrollee = _creator.CreateEnrolleService().GetAll().Select(enrollee =>
+                new DisplayEnrollee()
+                {
+                    FullName = enrollee.Surname + " " + enrollee.Name + " " + enrollee.Patronymic,
+                    Email = enrollee.Email
+                });
+           return View(displayEnrollee);
         }
     }
 

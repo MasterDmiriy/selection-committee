@@ -20,5 +20,6 @@ namespace SelectionCommittee.BLL.Interfaces
         void Create(FacultyDTO facultyDTO);
 
         bool IsExist(int facultyDTOId);
+
     }
 }

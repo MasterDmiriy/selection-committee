@@ -23,6 +23,7 @@ namespace SelectionCommittee.DAL.Repositories
         private ISubjectRepository _subjectRepository;
         private IMarkSubjectRepository _markSubjectRepository;
         private IFacultySubjectRepository _facultySubjectRepository;
+        private ICoefficientRepository _coefficientRepository;
 
         public UnitOfWork(string strConnection)
         {
@@ -39,6 +40,7 @@ namespace SelectionCommittee.DAL.Repositories
             _subjectRepository = new SubjectRepository(_db);
             _markSubjectRepository = new MarkSubjectRepository(_db);
             _facultySubjectRepository = new FacultySubjectRepository(_db);
+            _coefficientRepository = new CoefficientRepository(_db);
         }
 
         
@@ -66,6 +68,8 @@ namespace SelectionCommittee.DAL.Repositories
         public IMarkSubjectRepository MarkSubjectRepository => _markSubjectRepository;
 
         public IFacultySubjectRepository FacultySubjectRepository => _facultySubjectRepository;
+
+        public ICoefficientRepository CoefficientRepository => _coefficientRepository;
 
         public void Save()
         {

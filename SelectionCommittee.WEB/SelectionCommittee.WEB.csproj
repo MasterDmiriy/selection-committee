@@ -205,6 +205,7 @@
     <Compile Include="Models\CreateFaculty.cs" />
     <Compile Include="Models\CreateFacultyPost.cs" />
     <Compile Include="Models\CreateSpecialty.cs" />
+    <Compile Include="Models\DisplayEnrollee.cs" />
     <Compile Include="Models\DisplayFaculty.cs" />
     <Compile Include="Models\DisplayFullFaculty.cs" />
     <Compile Include="Models\DisplayHome.cs" />
@@ -249,6 +250,7 @@
     <Content Include="Views\SelectionCommittee\Specialty.cshtml" />
     <Content Include="Views\SelectionCommittee\Statement.cshtml" />
     <Content Include="Views\SelectionCommittee\PersonalArea.cshtml" />
+    <Content Include="Views\Admin\Enrollees.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -260,6 +262,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Image\Faculties\" />
     <Folder Include="Content\Image\Specialties\" />
+    <Folder Include="Content\Statements\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SelectionCommittee.BLL\SelectionCommittee.BLL.csproj">

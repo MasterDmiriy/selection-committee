@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using SelectionCommittee.DAL.Entities;
@@ -22,13 +23,19 @@ namespace SelectionCommittee.DAL.Repositories
 
         public Enrollee Get(string id)
         {
-            return _context.Enrollees
-                .Include(enrollee => enrollee.MarkSubjects.Select(mark=>mark.Subject))
-                .Include(enrollee=> enrollee.City)
-                .Include(enrollee=> enrollee.Region)
-                .Include(enrollee=> enrollee.EducationalInstitution)
-                .Include(enrollee=> enrollee.ApplicationUser)
+            var r = _context.Enrollees;
+            return r
                 .FirstOrDefault(enrollee => enrollee.Id == id);
+
+        }
+
+        public IEnumerable<Enrollee> GetAll()
+        {
+            return _context.Enrollees
+                .Include(enrollee => enrollee.MarkSubjects.Select(mark => mark.Subject))
+                .Include(enrollee => enrollee.Region)
+                .Include(enrollee => enrollee.EducationalInstitution)
+                .Include(enrollee => enrollee.ApplicationUser);
         }
 
         public void Update(Enrollee enrollee)

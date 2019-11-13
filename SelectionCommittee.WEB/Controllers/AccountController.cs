@@ -44,14 +44,15 @@ namespace SelectionCommittee.WEB.Controllers
             return RedirectToAction("Home", "SelectionCommittee");
         }
 
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel model)
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +71,12 @@ namespace SelectionCommittee.WEB.Controllers
                     }, claim);
                     if (User.IsInRole("admin"))
                         return RedirectToAction("Faculties", "Admin");
-                    return RedirectToAction("Home", "SelectionCommittee");
+                    if (String.IsNullOrEmpty(returnUrl))
+                        return RedirectToAction("Home", "SelectionCommittee");
+                    return Redirect(returnUrl);
                 }
             }
+            ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 

@@ -61,7 +61,7 @@ namespace SelectionCommittee.WEB.Controllers
                 Description = faculty.Description,
                 Photo = faculty.Photo,
                 Subjects = _subject.GetSubjectsNamesEIE(faculty.FacultySubjects),
-                SpecialtiesDTO = _specialty.GetByFacultyId(id)
+                SpecialtiesDTO = _specialty.GetByFacultyId(id).ToList()
             };
             return View(fullFaculty);
         }

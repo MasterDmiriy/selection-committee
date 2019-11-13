@@ -39,7 +39,7 @@ namespace SelectionCommittee.BLL.Services
                {
                    Id = user.Id,
                    Name = enrollee.Name, Surname = enrollee.Surname, Patronymic = enrollee.Patronymic, 
-                   CityId = enrollee.CityId, RegionId = enrollee.RegionId,
+                   CityId = enrollee.CityId == 0 ? null : enrollee.CityId, RegionId = enrollee.RegionId,
                    EducationalInstitutionId = enrollee.EducationalInstitutionId
                };
                _database.EnrolleeManager.Create(enrol);
@@ -95,6 +95,13 @@ namespace SelectionCommittee.BLL.Services
             _database.Save();
         }
 
+        public bool isRuralCoefficient(string id)
+        {
+            var enrollee = _database.EnrolleeManager.Get(id);
+            //if the enrollee lives in the village and graduated from an educational institution in the village
+            return enrollee.EducationalInstitution.IsCity == false && enrollee.CityId == null;
+        }
+
         public async Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee)
         {
             ClaimsIdentity claim = null;
@@ -127,13 +134,22 @@ namespace SelectionCommittee.BLL.Services
             var enrollee = _database.EnrolleeManager.Get(id);
             return new EnrolleeDTO()
             {
+                Id = enrollee.Id,
                 Name = enrollee.Name,
                 Surname = enrollee.Surname,
                 Patronymic = enrollee.Patronymic,
                 Email = enrollee.ApplicationUser.Email,
-                City = enrollee.City.Name,
+                City = enrollee.CityId == null ?
+                new CityService(_database).GetCities().First(city => city.Id == enrollee.CityId).Name
+                : null,
                 Region = enrollee.Region.Name,
-                EducationalInstitution = enrollee.EducationalInstitution.Name
+                EducationalInstitution = enrollee.EducationalInstitution.Name,
+                MarkSubjectsDTO = enrollee.MarkSubjects.Select(mark => new MarkSubjectDTO
+                {
+                    Mark = mark.Mark,
+                    SubjectId = mark.SubjectId,
+                    EnrolleeId = mark.EnrolleeId
+                })
             };
         }
 
@@ -159,6 +175,18 @@ namespace SelectionCommittee.BLL.Services
             }
 
             return MarkSubjects;
+        }
+
+        public IEnumerable<EnrolleeDTO> GetAll()
+        {
+            return _database.EnrolleeManager.GetAll().Select(enrollee => 
+                new EnrolleeDTO()
+                {
+                    Name = enrollee.Name,
+                    Surname = enrollee.Surname,
+                    Patronymic = enrollee.Patronymic,
+                    Email = enrollee.ApplicationUser.Email
+                });
         }
     }
 }

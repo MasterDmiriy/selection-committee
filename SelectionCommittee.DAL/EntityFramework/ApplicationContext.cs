@@ -28,6 +28,7 @@ namespace SelectionCommittee.DAL.EntityFramework
             modelBuilder.Entity<Region>().HasMany(r=>r.Enrollees)
                 .WithRequired(r=>r.Region).HasForeignKey(r=>r.RegionId)
                 .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Enrollee>().Property(enrollee => enrollee.CityId).IsOptional();
             base.OnModelCreating(modelBuilder);
         }
 
@@ -50,6 +51,9 @@ namespace SelectionCommittee.DAL.EntityFramework
         public  DbSet<MarkSubject> MarkSubjects { set; get; }
 
         public DbSet<TypeSubject> TypeSubjects { get; set; }
+
         public DbSet<FacultySubject> FacultySubjects { set; get; }
+
+        public DbSet<Сoefficient> Coefficients { get; set; }
     }
 }

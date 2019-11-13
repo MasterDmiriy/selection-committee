@@ -26,6 +26,8 @@ namespace SelectionCommittee.DAL.Interfaces
 
         IMarkSubjectRepository MarkSubjectRepository { get; }
 
+        ICoefficientRepository CoefficientRepository { get; }
+
         void Save();
         Task SaveAsync();
     }

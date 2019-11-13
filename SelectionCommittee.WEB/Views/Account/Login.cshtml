@@ -10,6 +10,7 @@
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { autocomplete = "off" }))
                 {
                     @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                     <h1 class="text-center">Login</h1>
                     <hr>
                     <div class="form-group">

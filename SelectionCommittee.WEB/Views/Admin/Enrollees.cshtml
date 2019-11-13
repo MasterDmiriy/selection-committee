@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SelectionCommittee.WEB.Models.DisplayEnrollee>
+
+@{
+    ViewBag.Title = "Enrollees";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <a role="button" href="/Admin/FormStatement" class="btn btn-outline-danger my-1 my-sm-2" aria-pressed="true">Сформировать ведомости</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ФИО</th>
+        <th scope="col">Электронная почта</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if(Model.Count()==0)
+    {
+        <tr>
+            <td colspan="2">Нет еще ни одного абитуриента</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var faculty in Model)
+        {
+            <tr>
+                <td>@faculty.FullName</td>
+                <td>@faculty.Email</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+

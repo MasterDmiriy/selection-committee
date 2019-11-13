@@ -1,4 +1,5 @@
-﻿using SelectionCommittee.DAL.Entities;
+﻿using System.Collections.Generic;
+using SelectionCommittee.DAL.Entities;
 
 namespace SelectionCommittee.DAL.Interfaces
 {
@@ -6,6 +7,8 @@ namespace SelectionCommittee.DAL.Interfaces
     {
         void Create(Enrollee enrollee);
         Enrollee Get(string id);
+
+        IEnumerable<Enrollee> GetAll();
 
         void Update(Enrollee enrollee);
     }

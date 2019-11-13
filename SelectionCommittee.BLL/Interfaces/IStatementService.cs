@@ -10,6 +10,8 @@ namespace SelectionCommittee.BLL.Interfaces
         void Create(StatementDTO statementDTO);
         IEnumerable<EnrolleeDTO> GetEnrolleeBySpecialtyId(int specialtyDTOId);
 
+        void FormStatement(string path);
+
         IEnumerable<int> GetFreePrioritiesByEnrollee(string enrolleeId);
 
 

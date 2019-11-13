@@ -23,6 +23,9 @@ namespace SelectionCommittee.BLL.Interfaces
 
         IEnumerable<MarkSubjectDTO> GetMarkSubjectsEIE(string id);
 
+        IEnumerable<EnrolleeDTO> GetAll();
+
+        bool isRuralCoefficient(string id);
 
         Task<ClaimsIdentity> Authenticate(EnrolleeDTO enrollee);
     }

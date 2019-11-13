@@ -9,7 +9,7 @@ namespace SelectionCommittee.WEB.Models
 
         public string Photo { get; set; }
 
-        public IEnumerable<SpecialtyDTO> SpecialtiesDTO { set; get; }
+        public IList<SpecialtyDTO> SpecialtiesDTO { set; get; }
         public IEnumerable<string> Subjects { get; set; }
         public string Description { get; set; }
 

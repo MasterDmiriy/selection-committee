@@ -6,21 +6,42 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <style></style>
 </head>
 <body>
-<div class="row">
-    <nav class="col-2 flex-column nav-pills m-3 p-lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link active" id="faculties" data-toggle="pill" href="/Admin/Faculties" role="tab" aria-controls="faculties" aria-selected="true">Факультеты</a>
-        <a class="nav-link" id="coefficientSetting" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="coefficientSetting" aria-selected="false">Настройка коэффициентов</a>
-        <a role="button" href="/Account/Logout" class="btn btn-outline-danger" aria-pressed="true">Выйти</a>
-    </nav>
-    <main class="col m-2 p-lg-3">
-        <div class="table-responsive-lg">
-            @RenderBody()
+
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav mr-auto nav-pills flex-md-row flex-column align-items-start">
+            <li class="nav-item m-md-0 m-2">
+                <a class="nav-link active" id="faculties" href="/Admin/Faculties" aria-selected="true">Факультеты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="coefficientSetting" href="#" aria-selected="false">Настройка коэффициентов</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="coefficientSetting" href="/Admin/Enrollees" aria-selected="false">Абитуриенты</a>
+            </li>
+        </ul>
+        <div class="d-flex flex-md-row flex-column align-items-start my-2 my-md-0">
+            <a role="button" href="/Account/Logout" class="btn btn-outline-danger my-2 my-sm-0" aria-pressed="true">Выйти</a>
         </div>
-    </main>
-</div>
+
+    </div>
+</nav>
+
+<main class="m-2 p-lg-3">
+    <div class="container table-responsive-md">
+        @RenderBody()
+    </div>
+</main>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
