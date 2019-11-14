@@ -3,18 +3,18 @@
 @{
     ViewBag.Title = "Statement";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int i=0, k=0;
+    int i = 0, k = 0;
     bool flag;
 }
 
 
 
-@using (Html.BeginForm("Statement", "SelectionCommittee", FormMethod.Post))
+@using (Html.BeginForm("Statement", "SelectionCommittee", FormMethod.Post, new { @class = "mx-2"}))
 {
-    @Html.ValidationSummary(false, "",new {@class="text-danger"})
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     @Html.HiddenFor(m => m.SpecialtyId)
     @Html.HiddenFor(m => m.FacultyId)
-    @Html.HiddenFor(m=>m.HasEIE)
+    @Html.HiddenFor(m => m.HasEIE)
 
     if (!Model.SubjectsCertificate.Any())
     {
@@ -22,80 +22,98 @@
     }
     else
     {
-        <h3>Заполните поля с оценками из вашего аттестата</h3>
-        for (i = 0; i < Model.SubjectsCertificate.Count();)
-        {
-            <div class="form-row">
-                @for (int j = 0; j < 4 && i != Model.SubjectsCertificate.Count(); j++, i++)
-                {
-                    <div class="form-group col-md-3">
-                        @Html.Hidden($"MarkSubjects[{i}].SubjectId", Model.SubjectsCertificate[i].Id)
-                        @Html.LabelFor(m => m.MarkSubjects[i].Mark, Model.SubjectsCertificate[i].Name)
-                        @Html.EditorFor(m => m.MarkSubjects[i].Mark, new
-                        {
-                            htmlAttributes = new
+        @*<h3>Заполните поля с оценками из вашего аттестата</h3>
+            for (i = 0; i < Model.SubjectsCertificate.Count();)
+            {
+                <div class="form-row">
+                    @for (int j = 0; j < 4 && i != Model.SubjectsCertificate.Count(); j++, i++)
+                    {
+                        <div class="form-group col-md-3">
+                            @Html.Hidden($"MarkSubjects[{i}].SubjectId", Model.SubjectsCertificate[i].Id)
+                            @Html.LabelFor(m => m.MarkSubjects[i].Mark, Model.SubjectsCertificate[i].Name)
+                            @Html.EditorFor(m => m.MarkSubjects[i].Mark, new
                             {
-                                @class = "form-control",
-                                min = "0",
-                                max = "12"
-                            }
-                        })
-                    </div>
-                }
-            </div>
-        }
-    }
-
-    <h3>Заполните поля с оценками в соответствии с вашими оценками ВНО</h3>
-    <div class="form-row">
-        @foreach (var key in Model.SubjectsEIE)
-        {
-            <div class="input-group col-md-4 mb-sm-4">
-                @if (key.Value.Count == 2)
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    min = "0",
+                                    max = "12"
+                                }
+                            })
+                        </div>
+                    }
+                </div>
+            }*@
+        <h3>Заполните поля с оценками из вашего аттестата</h3>
+        <div class="form-row">
+            @for (i = 0; i < Model.SubjectsCertificate.Count();i++)
+            {
+            <div class="form-group col-md-3 col-sm-6">
+                @Html.Hidden($"MarkSubjects[{i}].SubjectId", Model.SubjectsCertificate[i].Id)
+                @Html.LabelFor(m => m.MarkSubjects[i].Mark, Model.SubjectsCertificate[i].Name)
+                @Html.EditorFor(m => m.MarkSubjects[i].Mark, new
                 {
-                    <select id=@String.Format($"SubjectEIE{i}") name=@String.Format($"MarkSubjects[{i}].SubjectId") class="form-control">
-                        <option value=@key.Value[0].Id data-mark=@(!Model.HasEIE ? 100 : Model.MarkSubjects[i+k].Mark) selected>@key.Value[0].Name</option>
-                        <option value=@key.Value[1].Id data-mark=@(!Model.HasEIE? 100 : Model.MarkSubjects[i+k+1].Mark) >@key.Value[1].Name</option>
-                    </select>
-                    k++;
-                }
-                else
-                {
-                    @Html.Hidden($"MarkSubjects[{i+k}].SubjectId", key.Value[0].Id)
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">@key.Value[0].Name</span>
-                    </div>
-                }
-                @*@{
-                    flag = Model.MarkSubjects[i].EnrolleeId == null;
-                }*@
-                <input type="number" id=@String.Format($"MarkEIE{i}") name=@String.Format($"MarkSubjects[{i}].Mark") required
-                       class="form-control" min="100" max="200" 
-                       value="@Model.MarkSubjects[k==2 && Model.HasEIE ? Model.MarkSubjects.Count-2 : i].Mark"/>
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        min = "0",
+                        max = "12",
+                        step = "2"
+                    }
+                })
             </div>
-            i++;
 
-        }
-    </div>
-    <div class="form-row">
-        <div class="input-group col-md-3 col-sm-5">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Приоритет заявления</span>
-            </div>
-            @Html.DropDownListFor(m => m.Priority, new SelectList(Model.Priorities), new { @class = "form-control" })
+            }
         </div>
-    </div>
-    <div class="form-row text-center mt-5">
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Подать заявление</button>
-        </div>
-    </div>
 }
 
-    <script>
-        $('select').change(function () {
-            var id = this.id[this.id.length - 1];
-            $("#MarkEIE"+id).val($(this).find('option:selected').data("mark"));
-        });
-    </script>
+<h3>Заполните поля с оценками в соответствии с вашими оценками ВНО</h3>
+<div class="form-row">
+    @foreach (var key in Model.SubjectsEIE)
+    {
+        <div class="input-group col-lg-4 col-md-6 mb-3">
+            @if (key.Value.Count == 2)
+            {
+                <select id=@String.Format($"SubjectEIE{i}") name=@String.Format($"MarkSubjects[{i}].SubjectId") class="custom-select">
+                    <option value=@key.Value[0].Id data-mark=@(!Model.HasEIE ? 100 : Model.MarkSubjects[i+k].Mark) selected>@key.Value[0].Name</option>
+                    <option value=@key.Value[1].Id data-mark=@(!Model.HasEIE? 100 : Model.MarkSubjects[i+k+1].Mark)>@key.Value[1].Name</option>
+                </select>
+                k++;
+            }
+            else
+            {
+                @Html.Hidden($"MarkSubjects[{i + k}].SubjectId", key.Value[0].Id)
+                <div class="input-group-prepend">
+                    <span class="input-group-text">@key.Value[0].Name</span>
+                </div>
+            }
+            <input type="number" id=@String.Format($"MarkEIE{i}") name=@String.Format($"MarkSubjects[{i}].Mark") required
+                   class="form-control" min="100" max="200" step="10"
+                   value="@Model.MarkSubjects[k==2 && Model.HasEIE ? Model.MarkSubjects.Count-2 : i].Mark" />
+        </div>
+        i++;
+
+    }
+</div>
+<div class="form-row">
+    <div class="input-group col-md-3 col-sm-5">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Приоритет заявления</span>
+        </div>
+        @Html.DropDownListFor(m => m.Priority, new SelectList(Model.Priorities), new { @class = "custom-select" })
+    </div>
+</div>
+<div class="form-row text-center mt-5">
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Подать заявление</button>
+    </div>
+</div>
+}
+
+<script>
+    $('select').change(function () {
+        var id = this.id[this.id.length - 1];
+        $("#MarkEIE" + id).val($(this).find('option:selected').data("mark"));
+    });
+</script>
 

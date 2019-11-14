@@ -79,6 +79,8 @@ namespace SelectionCommittee.BLL.Services
                 var subjects = new SubjectService(_database)
                     .GetSubjectsNamesEIE(new FacultyService(_database).GetById(specialty.FacultyId).FacultySubjects)
                     .ToList();
+                //coefficients for subjects
+                var coefficients = _database.CoefficientRepository.GetAll().ToList();
                 foreach (var statementSpec in specialtyKey.Statements)
                 {
 
@@ -94,25 +96,31 @@ namespace SelectionCommittee.BLL.Services
                         FullName = enrollee.Surname + " " + enrollee.Name + " " + enrollee.Patronymic,
                         Certificate = certificate,
                         MarkSubjects = markSubjects,
-                        PassMark = EnrolleeCalculate(markSubjects[0].Mark, markSubjects[1].Mark, 
-                        markSubjects[2].Mark, certificate, ruralCoefficient,priorityCoefficient),
+                        PassMark = EnrolleeCalculate(markSubjects[0].Mark, markSubjects[1].Mark,
+                        markSubjects[2].Mark, certificate, ruralCoefficient, priorityCoefficient, coefficients),
                         RuralCoefficient = ruralCoefficient,
                         PriorityCoefficient = priorityCoefficient
                     });
 
                 }
+
                 Application ex = new Application();
 
-                //Отобразить Excel
+                //Don't display "Excel"
                 ex.Visible = false;
                 ex.SheetsInNewWorkbook = 1;
                 Workbook workBook = ex.Workbooks.Add(Type.Missing);
 
-                //Отключить отображение окон с сообщениями
+                //Disable display of message windows
                 ex.DisplayAlerts = false;
                 Worksheet sheet = (Worksheet)ex.Worksheets.Item[1];
 
                 sheet.Name = "Список абитуриентов";
+
+                sheet.Cells[1, 4] = "k1 - " + coefficients[0].Value;
+                sheet.Cells[1, 5] = "k2 - " + coefficients[1].Value;
+                sheet.Cells[1, 6] = "k3 - " + coefficients[2].Value;
+                sheet.Cells[1, 7] = "k4 - " + coefficients[3].Value;
 
                 sheet.Range[sheet.Cells[2, 3], sheet.Cells[2, 3]].Interior.Color = Color.FromArgb(153, 238, 153);
                 sheet.Cells[2, 3] = "Бюджетное место";
@@ -122,24 +130,37 @@ namespace SelectionCommittee.BLL.Services
                 sheet.Cells[3, 5] = "Украинский язык и литература";
                 sheet.Cells[3, 6] = "Иностранный язык или физика";
                 sheet.Cells[3, 7] = "Математика или биология";
-                sheet.Cells[3, 8] = "Балл";
+                sheet.Cells[3, 8] = "СК";
+                sheet.Cells[3, 9] = "ОК";
+                sheet.Cells[3, 10] = "Балл";
 
                 report = report.OrderByDescending(obj => obj.PassMark).ToList();
                 int i, j;
                 for (i = 0, j = 4; i < specialty.TotalPlaces && i < report.Count; i++, j++)
                 {
-                    //if(i< specialty.BudgetPlaces)
                     sheet.Cells[j, 2] = i + 1;
                     sheet.Cells[j, 3] = report[i].FullName;
                     sheet.Cells[j, 4] = report[i].Certificate;
                     sheet.Cells[j, 5] = report[i].MarkSubjects[0].Mark;
                     sheet.Cells[j, 6] = report[i].MarkSubjects[1].Mark;
                     sheet.Cells[j, 7] = report[i].MarkSubjects[2].Mark;
-                    sheet.Cells[j, 8] = report[i].PassMark;
+                    sheet.Cells[j, 8] = report[i].RuralCoefficient;
+                    sheet.Cells[j, 9] = report[i].PriorityCoefficient;
+                    sheet.Cells[j, 10] = report[i].PassMark;
                 }
 
-                //Захватываем диапазон ячеек
-                Range rng = sheet.Range[sheet.Cells[3, 2], sheet.Cells[9, 8]];
+                int allBudget = Math.Min(j - 1, specialty.BudgetPlaces);
+
+                sheet.Range[sheet.Cells[2, 5], sheet.Cells[2, 6]].Merge(Type.Missing);
+                sheet.Cells[2, 5] = "СК - сельской коэффициент";
+
+                sheet.Range[sheet.Cells[2, 7], sheet.Cells[2, 10]].Merge(Type.Missing);
+                sheet.Cells[2, 7] = "ОК - отраслевой коэффициент";
+
+                sheet.Range[sheet.Cells[4, 8], sheet.Cells[allBudget, 10]].NumberFormatLocal = "# ##0,00";
+
+                //Capture a range of cells
+                Range rng = sheet.Range[sheet.Cells[3, 2], sheet.Cells[allBudget, 10]];
                 rng.WrapText = true;
                 rng.EntireRow.AutoFit();
                 rng.EntireColumn.AutoFit();
@@ -147,29 +168,46 @@ namespace SelectionCommittee.BLL.Services
                 rng.VerticalAlignment = XlVAlign.xlVAlignCenter;
                 rng.HorizontalAlignment = XlHAlign.xlHAlignCenter;
 
+                //Frame the table
                 Borders border = rng.Borders;
                 border.LineStyle = XlLineStyle.xlContinuous;
 
-                var colorRange = sheet.Range[sheet.Cells[4, 2], sheet.Cells[9, 8]];
+                //Making a green background for budget places
+                var colorRange = sheet.Range[sheet.Cells[4, 2], sheet.Cells[allBudget, 10]];
                 colorRange.Interior.Color = Color.FromArgb(153, 238, 153);
-                
 
-                sheet.Range[sheet.Cells[3, 3], sheet.Cells[9, 3]].ColumnWidth = 20;
-                sheet.Range[sheet.Cells[3, 5], sheet.Cells[9, 5]].ColumnWidth = 16;
-                sheet.Range[sheet.Cells[3, 6], sheet.Cells[9, 7]].ColumnWidth = 14;
+                //Set the width
+                sheet.Range[sheet.Cells[3, 3], sheet.Cells[allBudget, 3]].ColumnWidth = 20;
+                sheet.Range[sheet.Cells[3, 4], sheet.Cells[allBudget, 4]].ColumnWidth = 7;
+                sheet.Range[sheet.Cells[3, 5], sheet.Cells[allBudget, 5]].ColumnWidth = 13;
+                sheet.Range[sheet.Cells[3, 6], sheet.Cells[allBudget, 7]].ColumnWidth = 12;
+                try
+                {
+                    ex.Application.ActiveWorkbook.SaveAs(path + specialty.Name + ".xlsx", Type.Missing,
+                        Type.Missing, Type.Missing, false,
+                        Type.Missing, XlSaveAsAccessMode.xlNoChange, Type.Missing,
+                        Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-                ex.Application.ActiveWorkbook.SaveAs(path+specialty.Name+ ".xlsx", Type.Missing,
-                    Type.Missing, Type.Missing, false,
-                    Type.Missing, XlSaveAsAccessMode.xlNoChange, Type.Missing,
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                workBook.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, path + specialty.Name + ".pdf");
+                    sheet.Range[sheet.Cells[1, 2], sheet.Cells[allBudget, 10]]
+                        .ExportAsFixedFormat
+                        (
+                        XlFixedFormatType.xlTypePDF,
+                        path + specialty.Name + ".pdf",
+                        XlFixedFormatQuality.xlQualityStandard,
+                        true,
+                        true
+                        );
+                }
+                catch(Exception exeption)
+                {
+                    ex.Quit();
+                }
             }
         }
 
         private double EnrolleeCalculate(int firstMark, int secondMark, int thirdMark, int certificateMark,
-            double ruralCoefficient, double priorityCoefficient)
+            double ruralCoefficient, double priorityCoefficient, IList<Сoefficient> coefficients)
         {
-            var coefficients = _database.CoefficientRepository.GetAll().ToList();
             double passMark = Math.Round((firstMark * coefficients[0].Value + secondMark * coefficients[1].Value +
                                           thirdMark * coefficients[2].Value
                                           + certificateMark * coefficients[3].Value) *

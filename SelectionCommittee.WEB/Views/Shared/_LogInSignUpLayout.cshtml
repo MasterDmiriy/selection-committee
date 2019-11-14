@@ -8,10 +8,8 @@
     <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
     <style>
-            .container {
-                margin-top: 10em;
-            }
         
         form {
             margin: 0 auto;
@@ -19,9 +17,13 @@
             background-color: white;
             border-radius: 20px;
         }
+        body{
+            background-image: url(/Content/Image/15505.jpg);
+            padding: 10% 0;
+        }
     </style>
 </head>
-<body background="~/Content/Image/15505.jpg">
+<body>
     @RenderBody()
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

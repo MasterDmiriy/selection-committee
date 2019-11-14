@@ -11,11 +11,12 @@
                 {
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-                    <h1 class="text-center">Login</h1>
+                    <h1 class="text-center">Авторизация</h1>
                     <hr>
+                    @Html.ValidationSummary()
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, "Email")
-                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(m => m.Email, "Электронная почта")
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "somemail@gmail.com"  } })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Password, "Пароль")

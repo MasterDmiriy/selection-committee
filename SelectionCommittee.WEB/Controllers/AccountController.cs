@@ -95,7 +95,11 @@ namespace SelectionCommittee.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            if(model.RegionId == 0)
+            {
+                ModelState.AddModelError("RegionId", "Область должна быть установлена");
+            }
+            else if (ModelState.IsValid)
             {
                 EnrolleeDTO enrolleeDto = new EnrolleeDTO
                 {

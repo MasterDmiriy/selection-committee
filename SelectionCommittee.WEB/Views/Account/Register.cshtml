@@ -10,29 +10,35 @@
                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { autocomplete = "off" }))
                 {
                     @Html.AntiForgeryToken()
-                    <h1 class="text-center">Register</h1>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        @Html.ActionLink("Авторизация", "Login", "Account")
+                    </div>
+                </div>
+                    <h1 class="text-center">Регистрация</h1>
                     <hr>
+                    @Html.ValidationSummary(true)
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             @Html.LabelFor(m => m.Surname, "Фамилия")
-                            @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.Surname)
+                            @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { @class = "form-control", placeholder = "Иванов" } })
+                            @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-4">
                             @Html.LabelFor(m => m.Name, "Имя")
-                            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.Name)
+                            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Иван" } })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-4">
                             @Html.LabelFor(m => m.Patronymic, "Отчество")
-                            @Html.EditorFor(m => m.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.Patronymic)
+                            @Html.EditorFor(m => m.Patronymic, new { htmlAttributes = new { @class = "form-control", placeholder = "Иванович" } })
+                            @Html.ValidationMessageFor(m => m.Patronymic, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="City">City</label>
+                            <label for="City">Город</label>
                             <select id="City" name="CityId" class="form-control">
                                 <option value="0" disabled selected>Выберите город</option>
                                 @foreach (var city in Model.Cities)
@@ -40,10 +46,11 @@
                                     <option value=@city.Id data-regionid=@city.RegionId>@city.Name</option>
                                 }
                             </select>
-                            @Html.ValidationMessage("CityId")
+                            <small id="explanations" class="form-text text-muted">В случае если вы не из города то не трогайте это поле.</small>
+                            @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="Region">Region</label>
+                            <label for="Region">Область</label>
                             <select id="Region" name="RegionId" class="form-control">
                                 <option value="0" disabled selected>Выберите область</option>
                                 @foreach (var region in Model.Regions)
@@ -52,13 +59,14 @@
 
                                 }
                             </select>
-                            @Html.ValidationMessageFor(m => m.RegionId)
+                            <small id="explanations" class="form-text text-muted">Ввести нужно ваще текущее место жительства.</small>
+                            @Html.ValidationMessageFor(m => m.RegionId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="EducationalInstitution">EducationalInstitution</label>
+                        <label for="EducationalInstitution">Образовательное учреждение</label>
                         <select id="EducationalInstitution" name="EducationalInstitutionId" class="form-control">
-                            <option value="0" disabled selected>Выберите учебное заведение</option>
+                            <option disabled selected>Выберите образовательное учреждение</option>
                             @foreach (var educationals in Model.EducationalInstitutions)
                             {
                                 <optgroup label="@educationals.Key">
@@ -69,23 +77,23 @@
                                 </optgroup>
                             }
                         </select>
-                        @Html.ValidationMessageFor(m => m.EducationalInstitutionId)
+                        @Html.ValidationMessageFor(m => m.EducationalInstitutionId, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, "Email")
-                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(m => m.Email)
+                        @Html.LabelFor(m => m.Email, "Электронная почта")
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "somemail@gmail.com" } })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(m => m.Password, "Пароль")
                             @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-6">
                             @Html.LabelFor(m => m.ConfirmPassword, "Подтвердите пароль")
                             @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row text-center">
@@ -94,7 +102,7 @@
                         </div>
                     </div>
                 }
-                </div>
+            </div>
                 </div>
                 </div>
 
@@ -108,7 +116,23 @@
                                     : $(this).text());
                                 $(this).width(width);
                             });
-                        });
+                    });
+
+                    $("#Surname, #Name, #Patronymic").keypress(function (event) {
+                        var charCode = event.charCode;
+                        if ($(this).val().length != 0 && (charCode < 1040 || charCode > 1105))
+                            event.preventDefault();
+                    });
+
+                    $("#Surname, #Name, #Patronymic").keyup(function (event) {
+                        var value = $(this).val();
+                        var charCode = event.charCode;
+                        if (value.length == 1)
+                            $(this).val(value.toUpperCase());
+                        else if (charCode >= 1040 || charCode <= 1071) {
+                            $(this).val(value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
+                        }
+                    });
     
                     $("#City")
                         .change(function () {

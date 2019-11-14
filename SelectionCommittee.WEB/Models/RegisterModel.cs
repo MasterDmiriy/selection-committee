@@ -6,27 +6,35 @@ namespace SelectionCommittee.WEB.Models
 {
     public class RegisterModel
     {
-        [Required]
+        [Required(ErrorMessage ="Электронная почта должна быть введена")]
         [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         public string Email { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Пароль должен быть введен")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Данное поле должно быть заполнено")]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage ="Пароли должны совпадать")]
         public string ConfirmPassword { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Имя должно быть введено")]
         public string Name { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Фамилия должна быть введена")]
         public string Surname { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Отчество должно быть введено")]
         public string Patronymic { get; set; }
+
         public int CityId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Область должна быть выбрана")]
         public int RegionId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Образовательное учреждение должно быть выбрано")]
         public int EducationalInstitutionId { get; set; }
 
         public IEnumerable<CityDTO> Cities { set; get; }

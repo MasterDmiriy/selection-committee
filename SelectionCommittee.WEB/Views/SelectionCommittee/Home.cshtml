@@ -3,5 +3,27 @@
     ViewBag.Title = "Index";
 }
 
+
+@section style
+{
+    <style>
+        .text {
+            font-family: "SegoeUIBold", sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            color: #464646;
+        }
+
+        .statement {
+            background-image: url(/Content/Image/pdf1.png);
+            padding: 30px 0 30px 70px;
+            background-repeat: no-repeat;
+            background-position: 0 center;
+        }
+    </style>
+}
+
 <img class="img-fluid d-block mx-auto" src="~/Content/Image/selection-committee-home.jpg" alt="Selection-Committee">
+@Html.Action("GetStatements")
 

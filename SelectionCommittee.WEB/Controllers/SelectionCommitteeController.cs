@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,6 +40,13 @@ namespace SelectionCommittee.WEB.Controllers
                 FacultiesDTO = _faculty.GetAll()
             };
             return PartialView(home);
+        }
+
+        public ActionResult GetStatements()
+        {
+            var files = Directory.GetFiles(Server.MapPath("/Content/Statements/"), "*.*", SearchOption.AllDirectories)
+                 .Where(file => Path.GetExtension(file) == ".pdf").Select(file=>Path.GetFileNameWithoutExtension(file));
+            return PartialView(files);
         }
 
         public ActionResult Home()
