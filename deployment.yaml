@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carrental-deployment
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: carrental
+  template:
+    metadata:
+      labels:
+        app: carrental
+    spec:
+      containers:
+      - name: carrental
+        image: carrentalapp:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "jdbc:postgresql://postgresql:5432/carrental"
+        - name: DATABASE_USER
+          value: "yourusername"
+        - name: DATABASE_PASSWORD
+          value: "yourpassword"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carrental-service
+  namespace: default
+spec:
+  selector:
+    app: carrental
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
